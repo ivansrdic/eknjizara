@@ -1,0 +1,83 @@
+Naslovna stranica:
+	Za login i registraciju treba primati:
+		- Vidi forme u home.blade.php
+	Za popise knjiga na naslovnoj stranici treba slati:
+		- Naslov
+		- Autori (nabrojeni zarezima u jednom stringu)
+		- Sliku (apsolutni link)
+			-- Popisi:
+				---Najprodavanije
+				---Najnovije
+
+Pretraga:
+	Za pretragu knjiga:
+		- Naslov
+		- Autori (nabrojeni zarezima u jednom stringu)
+		- Sliku (apsolutni link)
+		- Žanr (nabrojeni zarezima u jednom stringu)
+		- Godina izdanja
+
+Potpuni opis knjige:
+	Za potpuni opis knjige treba slati:
+		- Naslov
+		- Autori (nabrojeni zarezima u jednom stringu)
+		- Sliku (apsolutni link)
+		- Žanr (nabrojeni zarezima u jednom stringu)
+		- Godina izdanja
+		- Broj stranica knjige
+		- Ocjena knjige
+		- Komentari knjige (+ datum i vrijeme slanja)
+		- Razina stoga
+	Za kupnju treba slati
+		- Najniža cijena knjige
+		- Broj postojećih kupnji
+		- Prodavač
+
+Profil:
+	Glavna stranica:
+		Klijent (osobni profil):
+			Statistika klijenta:
+				- Broj kupljenih e-knjiga
+				- Broj kupljenih e-knjiga od knjižare
+				- Broj kupljenih e-knjiga od klijenata
+				- Cijena kupljenih e-knjiga
+				- Broj partnera
+				- Rang korisnika
+			Popis kupljenih knjiga:
+				- Naslov knjige
+				- Cijena knjige
+				- Timestamp
+				- Prodavač
+				- Link na primjerak knjige
+				- Link na certifikat
+				- Link na potpuni opis knjige
+		Klijent (profil partnera):
+			- Statistika klijenta(isto kao i osobni)
+			- Email adresa
+		Knjižara:
+			Statistika knjižare:
+				- Broj naslova
+				- Ostvarene kupnje
+				- Zarada od kupnji
+				- Zarada od provizija
+	Za ureživanje podataka treba primati (samo klijent):
+		- Vidi formu na edit-profile.blade.php
+	Za dodavanje nove knjige treba primati (samo knjižara):
+		- Vidi formu na add-book.blade.php
+	Pregled dostupnih e-knjiga (samo knjižara):
+		- Naslov knjige
+		- Autori
+		- Godina izdanja
+		- Žanr
+		- Omogući brisanje!!
+	Pregled registriranih klijenata:
+		- Ime
+		- Prezime
+		- Nadimak
+		- Email
+
+Popis klijenata partnera:
+	- Nadimak
+	- Naslov
+	- Kupio/prodao
+	- Timestamp
