@@ -81,3 +81,5 @@ Popis klijenata partnera:
 	- Naslov
 	- Kupio/prodao
 	- Timestamp
+
+PROMIJENA
