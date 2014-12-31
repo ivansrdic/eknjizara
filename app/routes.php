@@ -70,3 +70,81 @@ Route::get('/book/buy/{id}', array(
 	function($id) {
 		return View::make('buy');
 }))->where('id', '[0-9]+');
+
+
+ // ************************************************************************ // 
+
+ /* Login / sign out sign in */
+
+ /* 
+Authenticated group 
+*/
+Route::group(array('before' => 'auth'), function() {
+
+	/* 
+	Sign out (get part)
+	*/
+	Route::get('/account/sign-out', array(
+		'as' => 'account-sign-out',
+		'uses' => 'AccountController@getSignOut'
+	));
+
+}); 
+
+
+
+
+
+
+/* 
+Unauthenticated group 
+*/
+Route::group(array('before' => 'guest'), function() {
+	
+	/* 
+	CSRF protection group 
+	*/
+	Route::group(array('before' => 'csrf'), function() {
+		/* 
+		Create account (post part) 
+		*/
+		Route::post('/account/create', array(
+			'as' => 'account-create-post', 
+			'uses' => 'AccountController@postCreate'
+		));
+
+		/* 
+		Sign in (post part) 
+		*/
+		Route::post('/account/sign-in', array(
+			'as' => 'account-sign-in-post',
+			'uses' => 'AccountController@postSignIn'
+		));
+
+	});
+
+	/* 
+	Sign in (get part) 
+	*/
+	Route::get('/account/sign-in', array(
+		'as' => 'account-sign-in',
+		'uses' => 'AccountController@getSignIn'
+	));
+
+	
+	/* 
+	Create account (get part) 
+	*/
+	Route::get('/account/create', array(
+		'as' => 'account-create', 
+		'uses' => 'AccountController@getCreate'
+		));
+
+
+	Route::get('/account/activate/{code}', array(
+		'as' => 'account-activate', 
+		'uses' => 'AccountController@getActivate'
+	));
+
+
+});
