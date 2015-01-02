@@ -12,10 +12,10 @@ class CreateGenreTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('genre', function($table) {
+		Schema::create('genres', function($table) {
 			
 			$table->increments('genre_id');
-			$table->string('genre_name'); 
+			$table->string('genre_name')->unique(); 
 			
 			$table->timestamps(); // creating created_at & updated_at
 		});
@@ -28,7 +28,7 @@ class CreateGenreTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('genre'); 
+		Schema::drop('genres'); 
 	}
 
 }

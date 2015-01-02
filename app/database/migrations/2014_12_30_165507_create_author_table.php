@@ -12,7 +12,7 @@ class CreateAuthorTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('author', function($table) {
+		Schema::create('authors', function($table) {
 			
 			$table->increments('author_id');
 			$table->string('author_name'); 
@@ -29,7 +29,7 @@ class CreateAuthorTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('author'); 
+		Schema::drop('authors'); 
 	}
 
 }

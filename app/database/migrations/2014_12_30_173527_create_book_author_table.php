@@ -12,13 +12,13 @@ class CreateBookAuthorTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('book_author', function($table) {
+		Schema::create('author_book', function($table) {
 			
 			$table->integer('book_id_foreign')->unsigned();
-			$table->foreign('book_id_foreign')->references('book_id')->on('books');
+			$table->foreign('book_id_foreign')->references('book_id')->on('books')->onDelete('cascade');
 
 			$table->integer('author_id_foreign')->unsigned();
-			$table->foreign('author_id_foreign')->references('author_id')->on('author');
+			$table->foreign('author_id_foreign')->references('author_id')->on('authors')->onDelete('cascade');
 	
 			$table->timestamps(); // creating created_at & updated_at
 		});
@@ -31,7 +31,7 @@ class CreateBookAuthorTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('book_author'); 
+		Schema::drop('author_book'); 
 	}
 
 }

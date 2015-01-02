@@ -12,7 +12,7 @@ class CreateStackTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('stack', function($table) {
+		Schema::create('stacks', function($table) {
 			
 
 			$table->integer('book_id_foreign')->unsigned();
@@ -37,7 +37,7 @@ class CreateStackTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('stack');
+		Schema::drop('stacks');
 	}
 
 }
