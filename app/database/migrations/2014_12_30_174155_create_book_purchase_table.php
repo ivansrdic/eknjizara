@@ -12,13 +12,15 @@ class CreateBookPurchaseTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('book_purchase', function($table) {
-			
+		Schema::create('purchase_book', function($table) {
+
+			$table->increments('id');
+		
 			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // id of the user
 
 			$table->integer('book_id_foreign')->unsigned();
-			$table->foreign('book_id_foreign')->references('book_id')->on('books');
+			$table->foreign('book_id_foreign')->references('book_id')->on('books')->onDelete('cascade'); // id of the book 
 
 			$table->string('certificate_link'); 
 			$table->integer('purchase_price');
@@ -35,7 +37,7 @@ class CreateBookPurchaseTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('book_purchase'); 
+		Schema::drop('purchase_book'); 
 	}
 
 }
