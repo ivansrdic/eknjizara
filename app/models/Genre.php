@@ -10,7 +10,7 @@ class Genre extends Eloquent {
     protected $primaryKey = 'genre_id';
 
     public function books() {
-        return $this->belongsToMany('Book')->withTimestamps();
+        return $this->belongsToMany('Book', 'book_genre', 'genre_id_foreign', 'book_id_foreign')->withTimestamps();
     }
 
 }

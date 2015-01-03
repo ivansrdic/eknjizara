@@ -16,15 +16,16 @@ class CreateStackTable extends Migration {
 			
 
 			$table->integer('book_id_foreign')->unsigned();
-			$table->foreign('book_id_foreign')->references('book_id')->on('books');
+			$table->foreign('book_id_foreign')->references('book_id')->on('books')->onDelete('cascade');
 
-			$table->integer('price'); 
-			$table->smallInteger('stack_rank');
-			$table->string('percentage_reduction_price');
-			$table->string('client_with_lowest_price'); 
-			$table->string('percentage_reduction_commission');
-			$table->integer('bookstore_commission'); 
-			$table->smallInteger('max_stack_rank'); 
+			$table->float('starting_price');
+			$table->float('price');
+			$table->smallInteger('stack_rank')->default(0);
+			$table->float('percentage_reduction_price')->default(0.02);
+			$table->integer('client_with_lowest_price')->unsigned()->nullable();
+			$table->foreign('client_with_lowest_price')->references('id')->on('users');
+			$table->float('bookstore_commission')->default(0.05);
+			$table->smallInteger('max_stack_rank')->default(8);
 
 			$table->timestamps(); // creating created_at & updated_at
 		});

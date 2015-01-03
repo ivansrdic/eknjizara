@@ -13,6 +13,7 @@ class Stack extends Eloquent {
         return $this->belongsTo('Book', 'book_id_foreign');
     }
 
+
 }
 
 

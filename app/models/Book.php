@@ -18,7 +18,7 @@ class Book extends Eloquent {
     }
 
     public function genres() {
-        return $this->belongsToMany('Genre')->withTimestamps();
+        return $this->belongsToMany('Genre', 'book_genre', 'book_id_foreign', 'genre_id_foreign')->withTimestamps();
     }
 
 

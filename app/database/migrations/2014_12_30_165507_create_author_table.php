@@ -17,6 +17,7 @@ class CreateAuthorTable extends Migration {
 			$table->increments('author_id');
 			$table->string('author_name'); 
 			$table->string('author_lastname');
+			$table->unique(array('author_name', 'author_lastname'));
 			
 			$table->timestamps(); // creating created_at & updated_at
 		});
