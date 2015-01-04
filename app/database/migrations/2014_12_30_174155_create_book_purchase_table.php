@@ -19,6 +19,9 @@ class CreateBookPurchaseTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // id of the user
 
+			$table->integer('user_id_seller')->unsigned(); 
+			$table->foreign('user_id_seller')->references('id')->on('users')->onDelete('cascade'); // id of the seller 
+
 			$table->integer('book_id_foreign')->unsigned();
 			$table->foreign('book_id_foreign')->references('book_id')->on('books')->onDelete('cascade'); // id of the book 
 

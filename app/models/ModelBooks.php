@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class ModelBooks {
 
@@ -204,6 +204,31 @@ class ModelBooks {
         }
     }
 
+
+    /**
+    * Metoda simulira kupnju odnoso pohranjuje obavljenu kupnju u bazu podataka ( sprema id kupca, id knjige i id prodavaca).
+    * @param User $user kupac
+    * @param Book $book knjiga koja je kupljena
+    */
+    public static function buyBook(User $user, Book $book) {
+
+      $stack = $book->stack; 
+      $id_seller = $stack->client_with_lowest_price; 
+      if($id_seller == '0') {
+        $purchase_price = $stack->starting_price; 
+      } else {
+        $purchase_price = $stack->price; 
+      }
+      
+      $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'Link_na_certifikat')); 
+    }
+
 }
 
 ?>
+
+
+
+
+
+

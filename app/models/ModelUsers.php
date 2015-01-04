@@ -146,7 +146,7 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
       
       $seller = $book->stack->client_with_lowest_price; 
 
-      if ($seller == 'Eknjizara') {
+      if ($seller == '0') {
         $price = $book->stack->starting_price;  
         $user->statistics->total_bought_bookstore++;
         $user->statistics->total_price_books = ($user->statistics->total_price_books) + $price; 
@@ -249,6 +249,31 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
 
     $book->userGrades()->attach($user->id, array('grade' => $grade)); 
   }
+
+
+  /**
+  * Metoda dohvaća sve knjige koje je kupio predani user.
+  * @param User $user njegov popis kupljenih knjiga
+  * @return Array of titles
+  */
+  public static function getBoughtBooks(User $user) {
+
+    $bought_books[] = array(); 
+    $titles[] = array(); 
+    $purchases[] = array(); 
+    foreach($user->purchases as $purchase) {
+      
+      $id = $purchase->pivot->book_id_foreign; 
+      $book = Book::find($id); 
+      array_push($purchases, $purchase); 
+      array_push($bought_books, $purchase->pivot->book_id_foreign);
+      array_push($titles, $book->book_title); 
+    }
+    //return $titles; // array of book titles
+    // return $bought_books; // array of book ids
+    return $purchases; // array kupnji iz tablice 
+  }
+
 
 }
 
