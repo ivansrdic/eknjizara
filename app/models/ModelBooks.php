@@ -155,6 +155,10 @@ class ModelBooks {
                 $genre = Genre::where('genre_name', '=', $parameter['genre_name'])->get()->first();
                 if (!$genre) return array();
                 return $genre->books->all();
+            case 'year':
+                $books = Book::where('publication_year', '=', $parameter['year'])->get();
+                return $books;
+
             default:
                 throw new Exception("Criteria format invalid", 1);
         }
@@ -220,8 +224,11 @@ class ModelBooks {
         $purchase_price = $stack->price; 
       }
       
-      $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'Link_na_certifikat')); 
+      //certificate link ???
+      $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'Link_na_certifikat'));
+      updateStack($book, $id_seller);
     }
+
 
 }
 

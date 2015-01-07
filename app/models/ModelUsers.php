@@ -206,7 +206,7 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
     $comments[]=array(); 
     // book->userComments is a Collection of comments (many-to-many relationship #)
     foreach($book->userComments as $userComment) {
-      array_push($comments, $userComment->pivot->comment);  
+      array_push($comments, $userComment->pivot->comment);
     }
     return $comments; 
   }
@@ -232,7 +232,7 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
   public static function getGrades($id) {
     
     $book = Book::find($id); 
-    $grades[] = array();
+    $grades = array();
     foreach($book->userGrades as $grade) {
       array_push($grades, $grade->pivot->grade); 
     }
