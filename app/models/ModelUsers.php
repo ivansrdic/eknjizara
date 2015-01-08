@@ -203,10 +203,14 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
   public static function getComments_book($id) {
    
     $book = Book::find($id); 
-    $comments[]=array(); 
+    $comments=array(); 
     // book->userComments is a Collection of comments (many-to-many relationship #)
     foreach($book->userComments as $userComment) {
-      array_push($comments, $userComment->pivot->comment);
+      array_push($comments, array(
+        'comment' => $userComment->pivot->comment,
+        'comment_time' => $userComment->pivot->created_at,
+        'username' => User::find($userComment->pivot->user_id)->username
+      ));
     }
     return $comments; 
   }

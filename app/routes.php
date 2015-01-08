@@ -97,9 +97,8 @@ Route::get('/test', array(
 
 Route::get('/', array(
 	'as' => 'home',
-	function() {
-	return View::make('home');
-}));
+	'uses' => 'BookController@getHome'
+));
 
 Route::get('/profile', array(
 	'as' => 'profile',
@@ -139,9 +138,12 @@ Route::get('/profile/client-partner-list', array(
 
 Route::get('/search', array(
 	'as' => 'search',
-	function() {
-		return View::make('search');
-	}
+	'uses' => 'SearchController@getSearch'
+));
+
+Route::post('/search', array(
+	'as' => 'search',
+	'uses' => 'SearchController@postSearch'
 ));
 
 Route::get('/book/{id}', array(
@@ -152,21 +154,29 @@ Route::get('/book/{id}', array(
 	// }
 ))->where('id', '[0-9]+');
 
-Route::post('/book/{id}', array(
+Route::post('/book', array(
 	'as' => 'book-post',
 	'uses' =>  'BookController@postBook'
 	// function($id) {
 	// 	return View::make('book');
 	// }
-))->where('id', '[0-9]+');
+));
 
 Route::get('/book/buy/{id}', array(
-	'as' => 'buy',
+	'as' => 'buy-book',
 	'uses' =>  'BookController@getBuyBook'
 	// function($id) {
 	// 	return View::make('buy');
 	// }
 ))->where('id', '[0-9]+');
+
+Route::post('/book/buy/', array(
+	'as' => 'buy-book-post',
+	'uses' =>  'BookController@postBuyBook'
+	// function($id) {
+	// 	return View::make('buy');
+	// }
+));
 
 
  // ************************************************************************ // 

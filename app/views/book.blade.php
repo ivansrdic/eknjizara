@@ -23,15 +23,15 @@
 			</div>
 			<div class = "two-thirds column">
 				<div class = "row">
-					<h3 class="display-inline-block">Lord of the pigs&nbsp;</h3><h5 class="display-inline-block">(256 stranica)</h5>
+					<h3 class="display-inline-block">{{$book_title}}&nbsp;</h3><h5 class="display-inline-block">({{$pagenumber}} stranica)</h5>
 				</div>
 				<div class="row">
-					<h5>Deni Munjas, Ivan Srdić</h5>
+					<h5>{{$authors}}</h5>
 				</div>
 				<div class="row">
 					<div class = "one-half column">
 						<h5>Ocijeni knjigu</h5>
-						{{ Form::open(array('url' => 'test', 'method' => 'POST')) }}
+						{{ Form::open(array('url' => route('book-post'), 'method' => 'POST')) }}
 
 							{{ Form::select('rating', array(
 															'1' => '1',
@@ -41,58 +41,48 @@
 															'5' => '5'
 															), '5') }}
 
+							{{ Form::hidden('type', 'rate') }}
+							{{ Form::hidden('book_id', $book_id) }}
 							{{ Form::submit('Pošalji', array('style' => 'display: inline-block;'))}}
 
 						{{ Form::close() }}
-						{{ Form::open(array('url' => 'test', 'method' => 'POST')) }}
-							{{ Form::hidden('bookId', '123') }}
-							{{ Form::submit('Kupi knjigu')}}
 
-						{{ Form::close() }}
+						<a href="{{route('buy-book', $book_id)}}"><button>Kupi knjigu</button></a>
 					</div>
 					<div class = "one-half column">
 						<h5>Ocjena knjige</h5>
-						<h5 class = "margin0020">5/5</h5>
+						<h5 class = "margin0020">{{$grade}}/5</h5>
 						<h5>Stanje stoga</h5>
-						<h5>10/10</h5>
+						<h5>{{$stack_rank}}/8</h5>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			{{ Form::open(array('url' => route('book-post'), 'method' => 'POST')) }}
+
+				{{ Form::textarea('comment', '', array('class' => 'u-full-width')) }}
+				{{ Form::hidden('type', 'comment') }}
+				{{ Form::hidden('book_id', $book_id) }}
+				{{ Form::submit('Komentiraj', array('class' => 'u-pull-right'))}}
+
+			{{ Form::close() }}
+		</div>
 		<div class = "row text-list">
-			<div class = "twelve columns margin2000">
+			@foreach($comments as $comment)
+				<div class = "twelve columns margin2000">
 				<div class = "row border-bottom">
 					<div class = "twelve columns">
-						<h5>Spidey</h5>
-						<h5>26/12/2014</h5>
+						<h5>{{$comment['username']}}</h5>
+						<h5>{{$comment['comment_time']}}</h5>
 					</div>
 				</div>
 				<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus tortor in accumsan pharetra. Nulla id lorem enim. Vivamus justo metus, lobortis sed lacus in, consectetur posuere nisl. Curabitur tincidunt lacus at imperdiet dignissim. Ut tristique nibh ac mi aliquet eleifend. Maecenas consequat finibus maximus. Praesent euismod mauris dolor, et porttitor ante iaculis quis. Etiam lobortis fringilla odio sit amet blandit.
+				{{$comment['comment']}}
 				</p>
 			</div>
-			<div class = "twelve columns margin2000">
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Spidey</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus tortor in accumsan pharetra. Nulla id lorem enim. Vivamus justo metus, lobortis sed lacus in, consectetur posuere nisl. Curabitur tincidunt lacus at imperdiet dignissim. Ut tristique nibh ac mi aliquet eleifend. Maecenas consequat finibus maximus. Praesent euismod mauris dolor, et porttitor ante iaculis quis. Etiam lobortis fringilla odio sit amet blandit.
-				</p>
-			</div>
-			<div class = "twelve columns margin2000">
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Spidey</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus tortor in accumsan pharetra. Nulla id lorem enim. Vivamus justo metus, lobortis sed lacus in, consectetur posuere nisl. Curabitur tincidunt lacus at imperdiet dignissim. Ut tristique nibh ac mi aliquet eleifend. Maecenas consequat finibus maximus. Praesent euismod mauris dolor, et porttitor ante iaculis quis. Etiam lobortis fringilla odio sit amet blandit.
-				</p>
-			</div>
+			@endforeach
+		</div>
 	</main>
 </div>
 

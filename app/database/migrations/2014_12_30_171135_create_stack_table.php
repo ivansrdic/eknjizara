@@ -22,7 +22,7 @@ class CreateStackTable extends Migration {
 			$table->float('price');
 			$table->smallInteger('stack_rank')->default(0);
 			$table->float('percentage_reduction_price')->default(0.02);
-			$table->integer('client_with_lowest_price')->unsigned()->nullable();
+			$table->integer('client_with_lowest_price')->unsigned()->default(0);
 			$table->foreign('client_with_lowest_price')->references('id')->on('users');
 			$table->float('bookstore_commission')->default(0.05);
 			$table->smallInteger('max_stack_rank')->default(8);

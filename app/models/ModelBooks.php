@@ -70,6 +70,7 @@ class ModelBooks {
         $stack->price = $price;
         $book->stack()->save($stack);
 
+
         if ($book->push()) {
             return true;
         }
@@ -148,7 +149,7 @@ class ModelBooks {
                 // }
 
             case 'title':
-                $books = Book::where('book_title', '=', $parameter['book_title'])->get();
+                $books = Book::where('book_title', '=', $parameter['book_title'])->get()->all();
                 return $books;
 
             case 'genre':
@@ -156,7 +157,7 @@ class ModelBooks {
                 if (!$genre) return array();
                 return $genre->books->all();
             case 'year':
-                $books = Book::where('publication_year', '=', $parameter['year'])->get();
+                $books = Book::where('publication_year', '=', $parameter['year'])->get()->all();
                 return $books;
 
             default:
@@ -170,7 +171,7 @@ class ModelBooks {
     *           kraju najneprodavanije knjige, vraca sve knjige iz baze
     */
     public static function topSeller() {
-        return Book::orderBy('number_of_purchased_copies', 'desc')->get();
+        return Book::orderBy('number_of_purchased_copies', 'desc')->get()->all();
     }
 
     /**
@@ -179,7 +180,7 @@ class ModelBooks {
     *           kraju najstarije knjige, vraca sve knjige iz baze
     */
     public static function newest() {
-        return Book::orderBy('publication_year', 'desc')->get();
+        return Book::orderBy('publication_year', 'desc')->get()->all();
     }
 
     /**
@@ -194,7 +195,7 @@ class ModelBooks {
         if ($stack->stack_rank == $stack->max_stack_rank) {
             $stack->stack_rank = 0;
             $stack->price = $stack->starting_price;
-            $stack->client_with_lowest_price = null;
+            $stack->client_with_lowest_price = 0;
         } else {
             $stack->stack_rank++;
             $stack->price -= $stack->stack_rank * $stack->percentage_reduction_price * $stack->price;
@@ -226,7 +227,7 @@ class ModelBooks {
       
       //certificate link ???
       $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'Link_na_certifikat'));
-      updateStack($book, $id_seller);
+      ModelBooks::updateStack($book, $user->id);
     }
 
 
