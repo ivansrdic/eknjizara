@@ -92,8 +92,6 @@ class AccountController extends BaseController {
 
 	}
 
-<<<<<<< HEAD
-=======
 	public function getActivate ($code) {
     /*  Method called when user clicks on link for account activation */
     $user = User::where('code','=',$code)->where('active','=',0)->first();
@@ -150,5 +148,4 @@ class AccountController extends BaseController {
 		return Redirect::route('account-change-password')
 			->with('global', 'Your password could not be changed.');
 	}
->>>>>>> 3bbd6616beca2d9c7d204463b661221e894938e7
 }
