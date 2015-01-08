@@ -229,29 +229,4 @@ Route::group(array('before' => 'guest'), function() {
 		));
 
 	});
-
-	/* 
-	Sign in (get part) 
-	*/
-	Route::get('/account/sign-in', array(
-		'as' => 'account-sign-in',
-		'uses' => 'AccountController@getSignIn'
-	));
-
-	
-	/* 
-	Create account (get part) 
-	*/
-	Route::get('/account/create', array(
-		'as' => 'account-create', 
-		'uses' => 'AccountController@getCreate'
-		));
-
-
-	Route::get('/account/activate/{code}', array(
-		'as' => 'account-activate', 
-		'uses' => 'AccountController@getActivate'
-	));
-
-
 });
