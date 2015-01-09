@@ -17,7 +17,7 @@
 	<main class = "container margin2000">
 		<div class = "row border-bottom margin0020">
 			<div class = "twelve columns profile-name">
-				<h2 class = "no-margin">Spidey</h2>
+				<h2 class = "no-margin">{{ Auth::user()->username }}</h2>
 				<a href="{{ URL::route('edit') }}"><h6>edit</h6></a>
 			</div>
 		</div>
@@ -88,15 +88,21 @@
 					</div>
 				</div>
 				<div class = "row margin2020">
-					<div class = "one-third column">
-						<a href="{{ route('add-book') }}" class = "center"><h5>Dodavanje nove knjige</h5></a>
-					</div>
-					<div class = "one-third column">
-						<a href="{{ route('admin-book-list') }}" class = "center"><h5>Pregled dostupnih knjiga</h5></a>
-					</div>
-					<div class = "one-third column">
-						<a href="{{ route('admin-registered-list')}}" class = "center"><h5>Popis registriranih klijenata</h5></a>
-					</div>
+					@if(Auth::user()->isAdmin)
+						<div class = "one-third column">
+							<a href="{{ route('add-book') }}" class = "center"><h5>Dodavanje nove knjige</h5></a>
+						</div>
+						<div class = "one-third column">
+							<a href="{{ route('admin-book-list') }}" class = "center"><h5>Pregled dostupnih knjiga</h5></a>
+						</div>
+						<div class = "one-third column">
+							<a href="{{ route('admin-registered-list')}}" class = "center"><h5>Popis registriranih klijenata</h5></a>
+						</div>
+					@else
+						<div class = "twelve columns">
+							<a href="{{ route('add-book') }}" class = "center"><h5>Popis klijenata partnera</h5></a>
+						</div>
+					@endif
 				</div>
 			</div>
 		@endif

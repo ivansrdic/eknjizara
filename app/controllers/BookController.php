@@ -185,16 +185,16 @@ class BookController extends BaseController {
 
         $validator = Validator::make(Input::all(),
             array(
-                'book_title'  => 'required|max:100|min:1',
-                'authors'     => 'required|max:200|min:1',
-                'genres'      => 'required|max:200|min:1',
+                'book_title'  => 'required|max:100',
+                'authors'     => 'required|max:200',
+                'genres'      => 'required|max:200',
                 'price'       => 'required'
                 ) 
             );
 
 
         if($validator->fails()) {
-                return Redirect::route('home')
+                return Redirect::route('add-book')
                 ->withErrors($validator)
                 ->withInput(); 
         } else {
