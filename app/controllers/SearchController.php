@@ -4,7 +4,11 @@ class SearchController extends BaseController {
 
     public function getSearch() {
         $books = ModelBooks::newest();
-        $viewParameters = array()
+        if (count($books) > 8) {
+            $newest = array_slice($newest, 0, 8);
+        }
+
+        $viewParameters = array();
         foreach ($books as $book) {
             $authors = "";
             foreach ($book->authors as $author) {
@@ -24,17 +28,19 @@ class SearchController extends BaseController {
                 'link_picture' => $book->link_picture,
                 'genres' => $genres,
                 'publication_year' => $book->publication_year,
-            );
+            ));
         }
-
-        return View::make('search', $viewParameters);
+        var_dump($viewParameters);
+        return View::make('search', array('books' => $viewParameters));
     }
 
     public function postSearch() {
 
-        // ucitaj input
+        $input = Input::get('search');
+        $criteria = Input::get('sort_by');
+        $books = ModelBooks::getBooks($criteria, $input);
 
-        $viewParameters = array()
+        $viewParameters = array();
         foreach ($books as $book) {
             $authors = "";
             foreach ($book->authors as $author) {
@@ -54,10 +60,10 @@ class SearchController extends BaseController {
                 'link_picture' => $book->link_picture,
                 'genres' => $genres,
                 'publication_year' => $book->publication_year,
-            );
+            ));
         }
 
-        return View::make('search', $viewParameters);
+        return View::make('search', array('books' => $viewParameters));
     }
 
 }

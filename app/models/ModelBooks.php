@@ -72,6 +72,9 @@ class ModelBooks {
 
 
         if ($book->push()) {
+            $bookstore = BookstoreStatistics::all()->first();
+            $bookstore->total_number_of_titles++;
+            $bookstore->save();
             return true;
         }
         return false;
@@ -106,6 +109,9 @@ class ModelBooks {
     public static function deleteBook(Book &$book) {
         try {
              if ($book->delete()) {
+                $bookstore = BookstoreStatistics::all()->first();
+                $bookstore->total_number_of_titles--;
+                $bookstore->save();
                 return true;
             }
             return false;
@@ -134,30 +140,62 @@ class ModelBooks {
     public static function getBooks($criteria, array $parameter) {
         switch ($criteria) {
             case 'author':
-                // $authors = Author::where('author_name', 'LIKE', '%'.$parameter['author_name'].'%')
-                //             ->where('author_lastname', 'LIKE', '%'.$parameter['author_lastname'].'%')
-                //             ->get();
+                $words = split(" ", $parameter);
+                $author = null;
 
-                $author = Author::where('author_name', '=', $parameter['author_name'])
-                            ->where('author_lastname', '=', $parameter['author_lastname'])
-                            ->get()->first();
+                if (count($words) == 2) {
+                    $author = Author::where('author_name', '=', $words[0])
+                                ->where('author_lastname', '=', $words[1])
+                                ->get()->first();
+                    if (!$author) {
+                        $author = Author::where('author_name', '=', $words[1])
+                                ->where('author_lastname', '=', $words[0])
+                                ->get()->first();
+                    }
+                }
 
-                if (!$author) return array();
+                if (!$author) {
+                    $authors = array();
+                    foreach ($words as $word) {
+                        $authors += Author::where('author_lastname', '=', $word)
+                            ->get()->all();
+                    }
+                    if (!$author) {
+                        foreach ($words as $word) {
+                            $authors += Author::where('author_name', '=', $word)
+                                ->get()->all();
+                        }
+                    }
+                    $books = array();
+                    foreach ($authors as $author) {
+                        $books += $author->books->all();
+                    }
+                    return $books;
+                }
                 return $author->books->all();
-                // foreach ($authors as $author) {
-                //     $books += $author->books->all();
-                // }
+                
 
             case 'title':
-                $books = Book::where('book_title', '=', $parameter['book_title'])->get()->all();
+                $books = Book::where('book_title', '=', $parameter)->get()->all();
+                if (!$books) $books = Book::where(
+                                        'book_title', 'LIKE', '%'.$parameter.'%'
+                                        )->get()->all();
+                if (!$books) $books = array();
+
+                $words = split(" ", $parameter);
+                foreach ($words as $word) {
+                    $books += Book::where(
+                                        'book_title', 'LIKE', '%'.$word.'%'
+                                        )->get()->all();
+                }
                 return $books;
 
             case 'genre':
-                $genre = Genre::where('genre_name', '=', $parameter['genre_name'])->get()->first();
+                $genre = Genre::where('genre_name', '=', $parameter)->get()->first();
                 if (!$genre) return array();
                 return $genre->books->all();
             case 'year':
-                $books = Book::where('publication_year', '=', $parameter['year'])->get()->all();
+                $books = Book::where('publication_year', '=', $parameter)->get()->all();
                 return $books;
 
             default:
@@ -217,17 +255,25 @@ class ModelBooks {
     */
     public static function buyBook(User $user, Book $book) {
 
+      $bookstore = BookstoreStatistics::all()->first();
+      $bookstore->total_number_of_sold_titles++;
+
       $stack = $book->stack; 
-      $id_seller = $stack->client_with_lowest_price; 
+      $id_seller = $stack->client_with_lowest_price;
       if($id_seller == '0') {
-        $purchase_price = $stack->starting_price; 
+        $purchase_price = $stack->starting_price;
+        $bookstore->total_earnings += $purchase_price;
       } else {
-        $purchase_price = $stack->price; 
+        $purchase_price = $stack->price;
+        $bookstore->total_earnings += $purchase_price * $stack->bookstore_commission;
+        $bookstore->commission_earnings += $purchase_price * $stack->bookstore_commission;
       }
+
       
       //certificate link ???
       $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'Link_na_certifikat'));
       ModelBooks::updateStack($book, $user->id);
+      $bookstore->save();
     }
 
 

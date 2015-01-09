@@ -14,13 +14,16 @@ class CreateBookstoreStatisticsTable extends Migration {
 	{
 		Schema::create('bookstore_statistics', function($table) {
 			
-			$table->integer('total_number_of_titles')->primary(); 
-			$table->integer('total_number_of_sold_titles'); 
-			$table->integer('total_earnings');
-			$table->integer('commission_earnings');
+			$table->integer('total_number_of_titles')->primary()->default(0); 
+			$table->integer('total_number_of_sold_titles')->default(0); 
+			$table->float('total_earnings')->default(0); 
+			$table->float('commission_earnings')->default(0); 
 			
 			$table->timestamps(); // creating created_at & updated_at
 		});
+
+		DB::table('bookstore_statistics')->insert(array());
+
 	}
 
 	/**

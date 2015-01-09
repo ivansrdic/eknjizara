@@ -20,7 +20,7 @@
 			<!-- change form url, switch hardcoded data with foreach and check if there is a picture -->
 			{{ Form::open(array('url' => 'test', 'method' => 'POST')) }}
 
-				{{ Form::email('search', '', array(
+				{{ Form::text('search', '', array(
 												'placeholder' => 'Pretraži knjige',
 												'style' => 'width: 288px;'))}}
 
