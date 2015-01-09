@@ -163,8 +163,71 @@ class BookController extends BaseController {
         return View::make('home', array('newest' => $newest, 'topSeller' => $topSeller)); 
 
 
+    }
+
+
+    public function getAddBook() {
+        // provjera administratorskih ovlasti
+        if (! Auth::user()->isAdmin()) 
+            return Redirect::route('home') 
+                ->with('global', 'You do not have permission for this action.');
+
+        return View::make('add-book');
 
     }
+
+
+    public function postAddBook() {
+        // provjera administratorskih ovlasti
+        if (! Auth::user()->isAdmin()) 
+            return Redirect::route('home') 
+                ->with('global', 'You do not have permission for this action.');
+
+        $validator = Validator::make(Input::all(),
+            array(
+                'book_title'  => 'required|max:100|min:1',
+                'authors'     => 'required|max:200|min:1',
+                'genres'      => 'required|max:200|min:1',
+                'price'       => 'required'
+                ) 
+            );
+
+
+        if($validator->fails()) {
+                return Redirect::route('home')
+                ->withErrors($validator)
+                ->withInput(); 
+        } else {
+                $book_title = Input::get('book_title'); 
+                $authors    = Input::get('authors');
+                $genres     = Input::get('genres');
+                $price      = Input::get('price'); 
+
+                $book = new Book();
+                $book->book_title = $book_title;
+                $book = ModelBooks::addBook(&$book, $authors, $genres, $price);
+
+                /*
+                $book = Book::create(array(
+                    'book_title' => $book_title,
+                    'authors'    => $authors,
+                    'genres'     => $genres,
+                    'price'      => $price
+                ));
+                */
+
+                if($book->save()) {
+                    return Redirect::route('profile')
+                                    ->with('global','Your book has been saved!');
+                } else {
+                    return Redirect::route('profile')
+                                    ->with('global','Your book has not been saved!');
+                }
+            }
+
+        return View::make('add-book');
+    }
+
 
 }
 
