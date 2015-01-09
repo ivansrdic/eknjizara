@@ -61,7 +61,7 @@ class ProfileController extends BaseController {
 			return Redirect::route('home') 
 				->with('global', 'You do not have permission for this action.');
 
-		$viewParameters = BookstoreStatistics::all();
+		$viewParameters = BookstoreStatistics::all()->first;
 		var_dump($viewParameters);
 		return View::make('profile', $viewParameters);
 	}

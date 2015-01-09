@@ -187,7 +187,7 @@ Route::post('/book/buy/', array(
 Authenticated group 
 */
 Route::group(array('before' => 'auth'), function() {
-
+	/*
 	CSRF protection group
 	*/
 	Route::group(array('before' => 'csrf'), function(){
