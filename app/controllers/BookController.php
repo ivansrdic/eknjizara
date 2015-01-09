@@ -205,7 +205,7 @@ class BookController extends BaseController {
 
                 $book = new Book();
                 $book->book_title = $book_title;
-                $book = ModelBooks::addBook(&$book, $authors, $genres, $price);
+                $book = ModelBooks::addBook($book, $authors, $genres, $price);
 
                 /*
                 $book = Book::create(array(

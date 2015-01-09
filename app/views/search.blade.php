@@ -18,7 +18,7 @@
 	<main class = "container margin2000">
 		<div class = "row center margin0020">
 			<!-- change form url, switch hardcoded data with foreach and check if there is a picture -->
-			{{ Form::open(array('url' => 'test', 'method' => 'POST')) }}
+			{{ Form::open(array('url' => 'search', 'method' => 'POST')) }}
 
 				{{ Form::text('search', '', array(
 												'placeholder' => 'Pretraži knjige',

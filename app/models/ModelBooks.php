@@ -137,10 +137,11 @@ class ModelBooks {
     *    $books = ModelBooks::getBooks('genre', array('genre_name' => 'krimic'));
     *
     */
-    public static function getBooks($criteria, array $parameter) {
+    public static function getBooks($criteria, $parameter) {
         switch ($criteria) {
             case 'author':
-                $words = split(" ", $parameter);
+                $words = preg_split("/[ ]/", $parameter);
+
                 $author = null;
 
                 if (count($words) == 2) {
@@ -157,18 +158,19 @@ class ModelBooks {
                 if (!$author) {
                     $authors = array();
                     foreach ($words as $word) {
-                        $authors += Author::where('author_lastname', '=', $word)
-                            ->get()->all();
+                        $authors = array_unique(array_merge($authors, Author::where('author_lastname', '=', $word)
+                            ->get()->all()));
                     }
+
                     if (!$author) {
                         foreach ($words as $word) {
-                            $authors += Author::where('author_name', '=', $word)
-                                ->get()->all();
+                            $authors = array_unique(array_merge($authors, Author::where('author_name', '=', $word)
+                                ->get()->all()));
                         }
                     }
                     $books = array();
                     foreach ($authors as $author) {
-                        $books += $author->books->all();
+                        $books = array_unique(array_merge($books, $author->books->all()));
                     }
                     return $books;
                 }
@@ -182,11 +184,10 @@ class ModelBooks {
                                         )->get()->all();
                 if (!$books) $books = array();
 
-                $words = split(" ", $parameter);
+                $words = preg_split("/ /", $parameter);
                 foreach ($words as $word) {
-                    $books += Book::where(
-                                        'book_title', 'LIKE', '%'.$word.'%'
-                                        )->get()->all();
+                    $books = array_unique(array_merge($books, 
+                        Book::where('book_title', 'LIKE', '%'.$word.'%')->get()->all()));
                 }
                 return $books;
 

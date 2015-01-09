@@ -62,6 +62,7 @@ class SearchController extends BaseController {
                 'publication_year' => $book->publication_year,
             ));
         }
+        var_dump($viewParameters);
 
         return View::make('search', array('books' => $viewParameters));
     }
