@@ -4,7 +4,7 @@ class AccountController extends BaseController {
 	public function postSignIn() {
 		$validator = Validator::make(Input::all(),
 		 array(
-		 	'username' => 'required',
+		 	'usernameLogin' => 'required',
 		 	'password' => 'required'
 		 	)
 		 );
@@ -19,7 +19,7 @@ class AccountController extends BaseController {
 			$remember = (Input::has('remember')) ? true : false;
 			
 			$auth = Auth::attempt(array(
-				'username' => Input::get('username'),
+				'username' => Input::get('usernameLogin'),
 				'password' => Input::get('password'),
 				'active' => 1
 			), $remember);
@@ -81,6 +81,13 @@ class AccountController extends BaseController {
 				));
 
 				if($user->save()) {
+					$statistic = new User_Statistics(); 
+			        $statistic->user_rank = '0'; 
+			        $statistic->total_bought_bookstore = '0';
+			        $statistic->total_bought_users = '0';
+			        $statistic->total_price_books = '0';
+			        $statistic->number_of_client_partners = '0';
+			        $user->statistics()->save($statistic); 
 		            return Redirect::route('home')
 		                            ->with('global','Your account has been created!');
 		        } else {
