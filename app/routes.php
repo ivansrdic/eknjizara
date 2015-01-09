@@ -100,85 +100,6 @@ Route::get('/', array(
 	'uses' => 'BookController@getHome'
 ));
 
-Route::get('/profile', array(
-	'as' => 'profile',
-	function() {
-		return View::make('profile');
-}));
-
-Route::get('/profile/edit', array(
-	'as' => 'edit',
-	function() {
-		return View::make('edit-profile');
-}));
-
-Route::get('/profile/add-book', array(
-	'as' => 'add-book',
-	function(){
-		return View::make('add-book');
-}));
-
-Route::get('/profile/admin-book-list', array(
-	'as' => 'admin-book-list',
-	function(){
-		return View::make('admin-book-list');
-}));
-
-Route::get('/profile/admin-registered-list', array(
-	'as' => 'admin-registered-list',
-	function(){
-		return View::make('admin-registered-list');
-}));
-
-Route::get('/profile/client-partner-list', array(
-	'as' => 'client-partner-list',
-	function(){
-		return View::make('client-partner-list');
-}));
-
-Route::get('/search', array(
-	'as' => 'search',
-	'uses' => 'SearchController@getSearch'
-));
-
-Route::post('/search', array(
-	'as' => 'search',
-	'uses' => 'SearchController@postSearch'
-));
-
-Route::get('/book/{id}', array(
-	'as' => 'book',
-	'uses' =>  'BookController@getBook'
-	// function($id) {
-	// 	return View::make('book');
-	// }
-))->where('id', '[0-9]+');
-
-Route::post('/book', array(
-	'as' => 'book-post',
-	'uses' =>  'BookController@postBook'
-	// function($id) {
-	// 	return View::make('book');
-	// }
-));
-
-Route::get('/book/buy/{id}', array(
-	'as' => 'buy-book',
-	'uses' =>  'BookController@getBuyBook'
-	// function($id) {
-	// 	return View::make('buy');
-	// }
-))->where('id', '[0-9]+');
-
-Route::post('/book/buy/', array(
-	'as' => 'buy-book-post',
-	'uses' =>  'BookController@postBuyBook'
-	// function($id) {
-	// 	return View::make('buy');
-	// }
-));
-
-
  // ************************************************************************ // 
 
  /* Login / sign out sign in */
@@ -187,7 +108,7 @@ Route::post('/book/buy/', array(
 Authenticated group 
 */
 Route::group(array('before' => 'auth'), function() {
-
+	/*
 	CSRF protection group
 	*/
 	Route::group(array('before' => 'csrf'), function(){
@@ -216,11 +137,77 @@ Route::group(array('before' => 'auth'), function() {
 		'uses' => 'AccountController@getSignOut'
 	));
 
+	Route::get('/profile', array(
+		'as' => 'profile',
+		'uses' => 'ProfileController@getProfile'
+	));
+
+	Route::get('/profile/edit', array(
+		'as' => 'edit',
+		'uses' => 'ProfileController@getEditProfile'
+	));
+
+	Route::post('/profile/edit', array(
+		'as' => 'edit',
+		'uses' => 'ProfileController@postEditProfile'
+	));
+
+	Route::get('/profile/add-book', array(
+		'as' => 'add-book',
+		'uses' => 'BookController@getAddBook'
+	));
+
+	Route::post('/profile/add-book', array(
+		'as' => 'add-book',
+		'uses' => 'BookController@postAddBook'
+	));
+
+	Route::get('/profile/admin-book-list', array(
+		'as' => 'admin-book-list',
+		'uses' => 'ProfileController@getBookList'
+	));
+
+	Route::get('/profile/admin-registered-list', array(
+		'as' => 'admin-registered-list',
+		'uses' => 'ProfileController@getRegisteredClients'
+	));
+
+	Route::get('/profile/client-partner-list', array(
+		'as' => 'client-partner-list',
+		'uses' => 'ProfileController@getPartnerList'
+	));
+
+	Route::get('/search', array(
+		'as' => 'search',
+		'uses' => 'SearchController@getSearch'
+	));
+
+	Route::post('/search', array(
+		'as' => 'search',
+		'uses' => 'SearchController@postSearch'
+	));
+
+	Route::get('/book/{id}', array(
+		'as' => 'book',
+		'uses' =>  'BookController@getBook'
+	))->where('id', '[0-9]+');
+
+	Route::post('/book', array(
+		'as' => 'book-post',
+		'uses' =>  'BookController@postBook'
+	));
+
+	Route::get('/book/buy/{id}', array(
+		'as' => 'buy-book',
+		'uses' =>  'BookController@getBuyBook'
+	))->where('id', '[0-9]+');
+
+	Route::post('/book/buy/', array(
+		'as' => 'buy-book-post',
+		'uses' =>  'BookController@postBuyBook'
+	));
+
 }); 
-
-
-
-
 
 
 /* 

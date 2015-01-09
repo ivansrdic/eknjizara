@@ -168,7 +168,7 @@ class BookController extends BaseController {
 
     public function getAddBook() {
         // provjera administratorskih ovlasti
-        if (! Auth::user()->isAdmin()) 
+        if (! Auth::user()->isAdmin)
             return Redirect::route('home') 
                 ->with('global', 'You do not have permission for this action.');
 
@@ -179,7 +179,7 @@ class BookController extends BaseController {
 
     public function postAddBook() {
         // provjera administratorskih ovlasti
-        if (! Auth::user()->isAdmin()) 
+        if (! Auth::user()->isAdmin) 
             return Redirect::route('home') 
                 ->with('global', 'You do not have permission for this action.');
 

@@ -17,9 +17,6 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
   public static function getUsers() { 
 
     $users = User::all(); 
-    foreach($users as $user) { 
-      var_dump($user->name); 
-    }
     return $users;   
   }
 

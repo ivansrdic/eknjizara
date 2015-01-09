@@ -16,7 +16,14 @@
 
 <div class = "main content">
 	<main class = "container margin2000">
-
+		@if(Session::has('global'))
+			<div class = "row">
+				<div class = "twelve columns">
+					<h4 class="u-center u-error">{{Session::get('global')}}</h4>
+				</div>
+			</div>
+		@endif
+		@if(Auth::guest())
 		<div class = "row">
 			<div class = "four columns">
 				<h2>Login</h2>
@@ -31,14 +38,17 @@
 			<div class = "four columns">
 				{{ Form::open(array('url' => route('account-sign-in-post'), 'method' => 'POST')) }}
 
-					{{ Form::label('username', 'Korisničko ime') }}
-					{{ Form::text('username', '', array('placeholder' => 'Korisničko ime')) }}
+					{{ Form::label('usernameLogin', 'Korisničko ime') }}
+					{{ Form::text('usernameLogin', '', array('placeholder' => 'Korisničko ime')) }}
+					@if($errors->has('usernameLogin'))
+						<div class="u-error"> {{ $errors->first('usernameLogin') }}</div>
+					@endif
 
 					{{ Form::label('password', 'Lozinka') }}
 					{{ Form::password('password', array('placeholder' => 'Lozinka'))}}
-					<br/>
-					<input type="checkbox" name="remeber" id="remember">
-					<label for="remember">Remember me</label>
+					@if($errors->has('password'))
+						<div class="u-error"> {{ $errors->first('password') }}</div>
+					@endif
 
 					{{ Form::submit('Pošalji')}}
 
@@ -46,20 +56,17 @@
 			</div>
 			{{ Form::open(array('url' => route('account-create-post'), 'method' => 'POST', 'class' => 'no-margin')) }}
 			<div class = "three columns offset-by-two">
-			@if(Session::has('global'))
-				<p>{{Session::get('global')}}</p>
-			@endif
 
 					{{ Form::label('name', 'Ime') }}
 					{{ Form::text('name', '', array('placeholder' => 'Ime')) }}
 					@if($errors->has('name'))
-						{{ $errors->first('name') }}
+						<div class="u-error"> {{ $errors->first('name') }}</div>
 					@endif
 
 					{{ Form::label('lastname', 'Prezime') }}
 					{{ Form::text('lastname', '', array('placeholder' => 'Prezime')) }}
 					@if($errors->has('lastname'))
-						{{ $errors->first('lastname') }}
+						<div class="u-error"> {{ $errors->first('lastname') }}</div>
 					@endif
 
 			</div>
@@ -68,26 +75,26 @@
 					{{ Form::label('email', 'Email adresa')}}
 					{{ Form::email('email', '', array('placeholder' => 'Email adresa'))}}
 					@if($errors->has('email'))
-						{{ $errors->first('email') }}
+						<div class="u-error"> {{ $errors->first('email') }}</div>
 					@endif
 
 					{{ Form::label('username', 'Korisničko ime') }}
 					{{ Form::text('username', '', array('placeholder' => 'Korisničko ime')) }}
 					@if($errors->has('username'))
-						{{ $errors->first('username') }}
+						<div class="u-error"> {{ $errors->first('username') }}</div>
 					@endif
 
 					{{ Form::label('password', 'Lozinka') }}
 					{{ Form::password('password', array('placeholder' => 'Lozinka'))}}
 					@if($errors->has('password'))
-						{{ $errors->first('passwords') }}
+						<div class="u-error"> {{ $errors->first('passwords') }}</div>
 					@endif
 
 					{{ Form::Submit('Pošalji')}}
 			</div>
 			{{ Form::close() }}
 		</div>
-
+		@endif
 		<div class = "row">
 			<h4>Najprodavanije</h4>
 		</div>

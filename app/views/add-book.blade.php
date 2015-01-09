@@ -13,14 +13,14 @@
 @stop
 
 @section('body')
-	<div class = "main content">
+	<main class = "main content">
 		<div class = "container margin2000">
 			<div class = "row">
 				<div class = "twelve columns">
-					<h4>Popis registriranih klijenata</h4>
+					<h4>Dodaj knjigu</h4>
 				</div>
 			</div>
-			{{ Form::open(array('url' => 'test', 'method' => 'POST', 'class' => 'no-margin')) }}
+			{{ Form::open(array('url' => route('add-book'), 'method' => 'POST', 'class' => 'no-margin')) }}
 			<div class = "row">
 				<div class = "three columns">
 
@@ -46,7 +46,7 @@
 						{{ Form::text('price', '', array('placeholder' => 'Cijena knjige'))}}
 
 						{{ Form::label('stack-state', 'Stanje stoga')}}
-						{{ Form::email('stack-state', '', array('placeholder' => 'Stanje stoga'))}}
+						{{ Form::text('stack-state', '', array('placeholder' => 'Stanje stoga'))}}
 
 				</div>
 			</div>
@@ -62,5 +62,5 @@
 			</div>
 			{{ Form::close() }}
 		</div>
-	</div>
+	</main>
 @stop
