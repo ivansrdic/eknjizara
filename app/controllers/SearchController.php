@@ -23,6 +23,7 @@ class SearchController extends BaseController {
             }
 
             array_push($viewParameters, array(
+                'book_id' => $book->book_id,
                 'book_title' => $book->book_title,
                 'authors' => $authors,
                 'link_picture' => $book->link_picture,
@@ -56,6 +57,7 @@ class SearchController extends BaseController {
             }
 
             array_push($viewParameters, array(
+                'book_id' => $book->book_id,
                 'book_title' => $book->book_title,
                 'authors' => $authors,
                 'link_picture' => $book->link_picture,
