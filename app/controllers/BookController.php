@@ -207,15 +207,6 @@ class BookController extends BaseController {
                 $book->book_title = $book_title;
                 $book = ModelBooks::addBook($book, $authors, $genres, $price);
 
-                /*
-                $book = Book::create(array(
-                    'book_title' => $book_title,
-                    'authors'    => $authors,
-                    'genres'     => $genres,
-                    'price'      => $price
-                ));
-                */
-
                 if($book->save()) {
                     return Redirect::route('profile')
                                     ->with('global','Your book has been saved!');
