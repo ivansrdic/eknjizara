@@ -11,7 +11,7 @@ class ProfileController extends BaseController {
 		$statistics = ModelUsers::getUserStatistics($id);
 		$total_bought_books = $statistics->total_bought_bookstore + $statistics->total_bought_users;
 
-		$viewParameters = array(
+		$viewParametersStatistics = array(
 			'total_bought_books' => $total_bought_books, 
 	        'total_bought_bookstore' => $statistics->total_bought_bookstore,
 	        'total_bought_users' => $statistics->total_bought_users,
@@ -20,7 +20,35 @@ class ProfileController extends BaseController {
 	        'user_rank' => $statistics->user_rank 
 	    );
 
-		return View::make('profile', array('user' => $viewParameters));
+		// pronadi kupljene knjige od tog korisnika
+		$books = array();
+		$books = Book::userPurchases()->find($id);
+
+		$viewParametersBooks = array();
+
+		foreach ($books as $book) {
+            $authors = "";
+            foreach ($book->authors as $author) {
+                $authors = ($authors == "") ? "" : $authors . ", ";
+                $authors = $authors . $author->author_name . " " . $author->author_lastname;
+            }
+
+            $genres = "";
+            foreach ($book->genres as $genre) {
+                $genres = ($genres == "") ? "" : $genres . ", ";
+                $genres = $genres . $genre->genre_name;
+            }
+
+            array_push($viewParametersBooks, array(
+                'book_id' => $book->book_id,
+                'book_title' => $book->book_title,
+                'authors' => $authors,
+                'link_picture' => $book->link_picture,
+                'genres' => $genres,
+                'publication_year' => $book->publication_year
+            ));
+
+		return View::make('profile', array('user' => $viewParametersStatistics, 'books' => $viewParametersBooks));
 	}
 
 
