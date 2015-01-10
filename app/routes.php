@@ -117,7 +117,7 @@ Route::group(array('before' => 'auth'), function() {
 		*/
 		Route::post('/account/change-password', array(
 			'as' => 'account-change-password-post',
-			'uses' => 'AccountController@postChangePassword'
+			'uses' => 'ProfileController@postChangePassword'
 		));
 	});
 
@@ -126,7 +126,7 @@ Route::group(array('before' => 'auth'), function() {
 	*/
 	Route::get('/account/change-password', array(
 		'as' => 'account-change-password',
-		'uses' => 'AccountController@getChangePassword'
+		'uses' => 'ProfileController@getChangePassword'
 	));
 
 	/* 
