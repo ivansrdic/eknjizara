@@ -17,7 +17,7 @@
 <div class = "main content">
 	<main class = "container margin2000">
 		<div class = "row center margin0020">
-			<!-- change form url, switch hardcoded data with foreach and check if there is a picture -->
+
 			{{ Form::open(array('url' => 'search', 'method' => 'POST')) }}
 
 				{{ Form::text('search', '', array(
@@ -41,11 +41,11 @@
 				</div>
 				<div class = "row margin0020">
 			@endif
-			<?php $countBooks--; ?>
+			<?php $countBooks++; ?>
 
-			<a href = "{{ URL::asset('book/123') }}" class = "three columns">
+			<a href = "{{ URL::asset('book/' . $book['book_id']) }}" class = "three columns">
 				<div class = "display-book">
-					<img src="images/book-covers/1.jpg">
+					<img src="{{ $book['link_picture']}}">
 					<ul class="center no-margin">
 						<li><h5 class="no-margin">{{ $book['book_title'] }}</h5></li>
 						<li>{{ $book['authors'] }}</li>

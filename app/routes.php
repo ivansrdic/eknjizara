@@ -16,6 +16,7 @@ Route::get('/test', array(
 	function() {
 		$book = new Book();
 		$book->book_title = 'Gospodar prstenova 1';
+		$book->link_picture = 'images/book-covers/1.jpg';
 		$book->pagenumber = 250;
 		$book->publication_year = 2005;
 		$book->link_to_PDF = 'www.gospodar_prstenova_1.hr';
@@ -34,6 +35,7 @@ Route::get('/test', array(
 
 		$book = new Book();
 		$book->book_title = 'Gospodar prstenova 2';
+		$book->link_picture = 'images/book-covers/1.jpg';
 		$book->pagenumber = 270;
 		$book->publication_year = 2006;
 		$book->link_to_PDF = 'www.gospodar_prstenova_2.hr';
@@ -43,6 +45,7 @@ Route::get('/test', array(
 
 		$book = new Book();
 		$book->book_title = 'Harry Potter 1';
+		$book->link_picture = 'images/book-covers/2.jpg';
 		$book->pagenumber = 230;
 		$book->publication_year = 2006;
 		$book->link_to_PDF = 'www.Harry_Potter_1.hr';
@@ -60,6 +63,7 @@ Route::get('/test', array(
 
 		$book = new Book();
 		$book->book_title = 'Harry Potter 2';
+		$book->link_picture = 'images/book-covers/3.jpg';
 		$book->pagenumber = 120;
 		$book->publication_year = 2007;
 		$book->link_to_PDF = 'www.Harry_Potter_2.hr';
@@ -69,6 +73,7 @@ Route::get('/test', array(
 
 		$book = new Book();
 		$book->book_title = 'Harry Potter I Gospodar Prstenova';
+		$book->link_picture = 'images/book-covers/4.jpg';
 		$book->pagenumber = 240;
 		$book->publication_year = 2010;
 		$book->link_to_PDF = 'www.Harry_Potter_lotr.hr';
@@ -144,12 +149,12 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('/profile/edit', array(
 		'as' => 'edit',
-		'uses' => 'ProfileController@getEditProfile'
+		'uses' => 'ProfileController@getChangePassword'
 	));
 
 	Route::post('/profile/edit', array(
 		'as' => 'edit',
-		'uses' => 'ProfileController@postEditProfile'
+		'uses' => 'ProfileController@postChangePassword'
 	));
 
 	Route::get('/profile/add-book', array(

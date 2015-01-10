@@ -33,7 +33,7 @@ class SearchController extends BaseController {
         }
         var_dump($viewParameters);
         
-        return View::make('search', array('books' => $viewParameters, 'countBooks' => count($viewParameters)));
+        return View::make('search', array('books' => $viewParameters, 'countBooks' => 0));
     }
 
     public function postSearch() {

@@ -18,36 +18,40 @@
 	<main class = "container margin2000">
 		<div class = "row border-bottom margin0020">
 			<div class = "twelve columns">
-				<h2 class = "no-margin">Spidey</h2>
+				<h2 class = "no-margin">{{ Auth::user()->username }}</h2>
 			</div>
 		</div>
 		<div class = "row margin0020">
 			<div class = "twelve columns">
-				<h4 class = "no-margin">Ažuriranje podataka</h4>
+				<h4 class = "no-margin">Promjena lozinke</h4>
 			</div>
 		</div>
+		@if(Session::has('global'))
+			<div class = "row">
+				<div class = "twelve columns">
+					<h4 class="u-center u-error">{{Session::get('global')}}</h4>
+				</div>
+			</div>
+		@endif
 		<div class="row">
 			<div class="twelve columns">
 
-				{{ Form::open(array('url' => 'test', 'method' => 'POST', 'class' => 'no-margin')) }}
+				{{ Form::open(array('url' => route('edit'), 'method' => 'POST', 'class' => 'no-margin')) }}
 				<div class = "three columns">
 
-					{{ Form::label('name', 'Novo ime') }}
-					{{ Form::text('name', '', array('placeholder' => 'Novo ime')) }}
+					{{ Form::label('old_password', 'Stara lozinka') }}
+					{{ Form::password('old_password', array('placeholder' => 'Stara lozinka'))}}
+					@if($errors->has('old_password'))
+						<div class="u-error"> {{ $errors->first('old_password') }}</div>
+					@endif
 
-					{{ Form::label('lastname', 'Novo prezime') }}
-					{{ Form::text('lastname', '', array('placeholder' => 'Novo prezime')) }}
+					{{ Form::label('password', 'Nova lozinka') }}
+					{{ Form::password('password', array('placeholder' => 'Nova lozinka'))}}
+					@if($errors->has('password'))
+						<div class="u-error"> {{ $errors->first('password') }}</div>
+					@endif
 
-				</div>
-				<div class = "three columns">
-
-						{{ Form::label('email', 'Nova email adresa')}}
-						{{ Form::email('email', '', array('placeholder' => 'Nova email adresa'))}}
-
-						{{ Form::label('password', 'Nova lozinka') }}
-						{{ Form::password('password', array('placeholder' => 'Nova lozinka'))}}
-
-						{{ Form::submit('Pošalji')}}
+					{{ Form::submit('Pošalji')}}
 
 				</div>
 				{{ Form::close() }}
