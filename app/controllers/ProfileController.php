@@ -53,15 +53,14 @@ class ProfileController extends BaseController {
 
 
 	public function getChangePassword() {
-		return View::make('account.password');
+		return View::make('edit-profile');
 	}
 
 	public function postChangePassword() {
 		$validator = Validator::make(Input::all(),
 			array(
 				'old_password'	  => 'required',
-				'password'		  => 'required|min:6',
-				'password_repeat' => 'required|same:password'
+				'password'		  => 'required|min:6'
 			)
 		);
 
@@ -77,10 +76,10 @@ class ProfileController extends BaseController {
 				$user->password = Hash::make($password);
 
 				if($user->save()) {
-					return Redirect::route('home')
+					return Redirect::route('edit')
 						->with('global', 'Your password has been changed.');
 				} else {
-					return Redirect::route('home')
+					return Redirect::route('edit')
 						->with('global', 'Your old password is incorrect.');
 				}
 			}

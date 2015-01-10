@@ -20,6 +20,13 @@
 					<h4>Dodaj knjigu</h4>
 				</div>
 			</div>
+			@if(Session::has('global'))
+				<div class = "row">
+					<div class = "twelve columns">
+						<h4 class="u-center u-error">{{Session::get('global')}}</h4>
+					</div>
+				</div>
+			@endif
 			{{ Form::open(array('url' => route('add-book'), 'method' => 'POST', 'class' => 'no-margin')) }}
 			<div class = "row">
 				<div class = "three columns">
