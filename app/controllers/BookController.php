@@ -111,7 +111,7 @@ class BookController extends BaseController {
         $book = Book::find(Input::get('book_id'));
 
         // dodati autoriziranog usera
-        ModelBooks::buyBook(User::find(2), $book);
+        ModelBooks::buyBook(User::find(Auth::user()->id), $book);
         return Redirect::route('profile');
     }
 
@@ -213,6 +213,7 @@ class BookController extends BaseController {
                 $book = ModelBooks::addBook($book, $authors, $genres, $price);
 
                 if($book->save()) {
+                    
                     if (Input::hasFile('book_copy')) {
                         $viewParameters = array(
                             'book_title'       => $book_title,
@@ -225,7 +226,7 @@ class BookController extends BaseController {
                     }
                     return View::make('add-book', $viewParameters);
                 } else {
-                    return Redirect::route('profile')
+                    return Redirect::route('add-book')
                         ->with('global','Your book has not been saved!');
                 }
             }

@@ -21,34 +21,42 @@ class ProfileController extends BaseController {
 	    );
 
 		// pronadi kupljene knjige od tog korisnika
-		$books = array();
-		$books = Book::userPurchases()->find($id);
-
+		$purchases = Auth::user()->purchases();
+		if(!is_array($purchases)) {
+			$purchases = array($purchases);
+		}
 		$viewParametersBooks = array();
 
-		foreach ($books as $book) {
-            $authors = "";
-            foreach ($book->authors as $author) {
-                $authors = ($authors == "") ? "" : $authors . ", ";
-                $authors = $authors . $author->author_name . " " . $author->author_lastname;
-            }
+		if($purchases != null) {
+			foreach ($purchases as $purchase) {
+				var_dump($purchase);
+				/*$book = Book::find($purchase->book_id_foreign);
+	            $authors = "";
+	            foreach ($book->authors as $author) {
+	                $authors = ($authors == "") ? "" : $authors . ", ";
+	                $authors = $authors . $author->author_name . " " . $author->author_lastname;
+	            }
 
-            $genres = "";
-            foreach ($book->genres as $genre) {
-                $genres = ($genres == "") ? "" : $genres . ", ";
-                $genres = $genres . $genre->genre_name;
-            }
+	            $genres = "";
+	            foreach ($book->genres as $genre) {
+	                $genres = ($genres == "") ? "" : $genres . ", ";
+	                $genres = $genres . $genre->genre_name;
+	            }
 
-            array_push($viewParametersBooks, array(
-                'book_id' => $book->book_id,
-                'book_title' => $book->book_title,
-                'authors' => $authors,
-                'link_picture' => $book->link_picture,
-                'genres' => $genres,
-                'publication_year' => $book->publication_year
-            ));
+	            array_push($viewParametersBooks, array(
+	                'book_title' => $book->book_title,
+	                'price' => $purchase->purchase_price,
+	                'date' => $purchase->created_at,
+	                'seller' => User::find($purchase->user_id_seller)->username,
+	                'book_description' => route('book') . "/" . $book->id,
+	                'book_certificate' => "",
+	                'book_pdf' => route('home') . "pdf/" . $book->id . ".pdf"
+	            ));*/
+	        }
+	    }
 
 		return View::make('profile', array('user' => $viewParametersStatistics, 'books' => $viewParametersBooks));
+
 	}
 
 

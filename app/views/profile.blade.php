@@ -87,7 +87,10 @@
 						<h5>20232</h5>
 					</div>
 				</div>
-				<div class = "row margin2020">
+			</div>
+		@endif
+
+		<div class = "row margin2020">
 					@if(Auth::user()->isAdmin)
 						<div class = "one-third column">
 							<a href="{{ route('add-book') }}" class = "center"><h5>Dodavanje nove knjige</h5></a>
@@ -100,159 +103,38 @@
 						</div>
 					@else
 						<div class = "twelve columns">
-							<a href="{{ route('add-book') }}" class = "center"><h5>Popis klijenata partnera</h5></a>
+							<a href="{{ route('client-partner-list') }}" class = "center"><h5>Popis klijenata partnera</h5></a>
 						</div>
 					@endif
 				</div>
-			</div>
-		@endif
 
+		<div class = "row">
+			<div class = "twelve columns">
+				<h4>Popis kupljenih e-knjiga</h4>
+			</div>
+		</div>
 		<div class = "row text-list">
 			<div class = "twelve columns margin2000">
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
+				@foreach($books as $book)
+					<div class = "row border-bottom">
 						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
+							<h5>{{$book['book_title']}} - {{$book['price']}}</h5>
+							<h5>{{$book['date']}}</h5>
+						</div>
 					</div>
-				</div>
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
+					<div class = "row">
 						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
+							<div class = "twelve columns">
+								<h6>{{$book['seller']}}</h6>
+								<a href="{{$book['book_description']}}"><h6>Opis</h6></a>
+								<h6>&nbsp;/&nbsp;</h6>
+								<a href="{{$book['book_certificate']}}"><h6>Certifikat</h6></a>
+								<h6>&nbsp;/&nbsp;</h6>
+								<a href="{{$book['book_pdf']}}"><h6>Knjiga</h6></a>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
-					</div>
-				</div>
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
-					</div>
-				</div>
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
-					</div>
-				</div>
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
-					</div>
-				</div>
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
-					</div>
-				</div>
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<h5>26/12/2014</h5>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Knjižara/Ime Prezime</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div> <!-- To anyone reading this source..... GET FUCKED! -->
-					</div>
-				</div>
+				@endforeach
 			</div>
 	</main>
 </div>

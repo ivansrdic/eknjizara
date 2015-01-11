@@ -61,6 +61,7 @@ a:hover {
 .book-cover-spec {
     display: block;
     margin: 0 auto;
+    max-width: 294px;
 }
 
 /*.client-partner-list*/

@@ -370,6 +370,13 @@ p {
   float: right; }
 .u-pull-left {
   float: left; }
+.margin2000 {
+  padding-top: 20px; }
+.margin0020 {
+  margin-bottom: 20px; }
+.margin2020 {
+  margin-top: 20px;
+  margin-bottom: 20px; }
 .u-center {
   text-align: center; }
 .u-error {

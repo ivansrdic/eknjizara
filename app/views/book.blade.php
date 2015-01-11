@@ -16,10 +16,10 @@
 
 <div class = "main content">
 	<main class = "container margin2000">
-		<div class="row">
+		<div class="row margin0020">
 			<!-- change form url, switch hardcoded data with controller data and check if there is a picture -->
 			<div class = "one-third column">
-				<img class = "book-cover-spec" src="{{ URL::asset($book['link_picture']) }}">
+				<img class = "book-cover-spec" src="{{ URL::asset($link_picture) }}">
 			</div>
 			<div class = "two-thirds column">
 				<div class = "row">

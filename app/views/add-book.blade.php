@@ -52,10 +52,10 @@
 						<div class="u-error"> {{ $errors->first('genres') }}</div>
 					@endif
 
-					{{ Form::label('year-published', 'Godina izdanja') }}
-					{{ Form::text('year-published', '', array('placeholder' => 'Godina izdanja'))}}
-					@if($errors->has('year-published'))
-						<div class="u-error"> {{ $errors->first('year-published') }}</div>
+					{{ Form::label('publication_year', 'Godina izdanja') }}
+					{{ Form::text('publication_year', '', array('placeholder' => 'Godina izdanja'))}}
+					@if($errors->has('publication_year'))
+						<div class="u-error"> {{ $errors->first('publication_year') }}</div>
 					@endif
 
 				</div>
