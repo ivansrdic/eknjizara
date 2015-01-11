@@ -185,10 +185,12 @@ class BookController extends BaseController {
 
         $validator = Validator::make(Input::all(),
             array(
-                'book_title'  => 'required|max:100',
-                'authors'     => 'required|max:200',
-                'genres'      => 'required|max:200',
-                'price'       => 'required'
+                'book_title'       => 'required|max:100',
+                'authors'          => 'required|max:200',
+                'genres'           => 'required|max:200',
+                'publication_year' => 'required',
+                'price'            => 'required',
+                'book_copy'        => 'required'
                 ) 
             );
 
@@ -198,25 +200,36 @@ class BookController extends BaseController {
                 ->withErrors($validator)
                 ->withInput(); 
         } else {
-                $book_title = Input::get('book_title'); 
-                $authors    = Input::get('authors');
-                $genres     = Input::get('genres');
-                $price      = Input::get('price'); 
+                $book_title       = Input::get('book_title'); 
+                $authors          = Input::get('authors');
+                $genres           = Input::get('genres');
+                $publication_year = Input::get('publication_year');
+                $price            = Input::get('price');
+                $path             = 'public/pdf';
+                $file             = Input::file('book_copy')->move($path, $book_title); 
 
                 $book = new Book();
                 $book->book_title = $book_title;
                 $book = ModelBooks::addBook($book, $authors, $genres, $price);
 
                 if($book->save()) {
-                    return Redirect::route('profile')
-                                    ->with('global','Your book has been saved!');
+                    if (Input::hasFile('book_copy')) {
+                        $viewParameters = array(
+                            'book_title'       => $book_title,
+                            'authors'          => $authors,
+                            'genres'           => $genres,
+                            'publication_year' => $publication_year,
+                            'price'            => $price,
+                            'book_copy'        => $file
+                            );
+                    }
+                    return View::make('add-book', $viewParameters);
                 } else {
                     return Redirect::route('profile')
-                                    ->with('global','Your book has not been saved!');
+                        ->with('global','Your book has not been saved!');
                 }
             }
 
-        return View::make('add-book');
     }
 
 
