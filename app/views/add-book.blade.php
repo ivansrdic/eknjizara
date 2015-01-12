@@ -27,7 +27,7 @@
 					</div>
 				</div>
 			@endif
-			{{ Form::open(array('url' => route('add-book'), 'method' => 'POST', 'class' => 'no-margin')) }}
+			{{ Form::open(array('url' => route('add-book'), 'files' => true, 'method' => 'POST', 'class' => 'no-margin')) }}
 			<div class = "row">
 				<div class = "three columns">
 
@@ -67,21 +67,15 @@
 						<div class="u-error"> {{ $errors->first('price') }}</div>
 					@endif
 
-					{{ Form::label('stack-state', 'Stanje stoga')}}
-					{{ Form::text('stack-state', '', array('placeholder' => 'Stanje stoga'))}}
-					@if($errors->has('stack-state'))
-						<div class="u-error"> {{ $errors->first('stack-state') }}</div>
-					@endif
-
 				</div>
 			</div>
 			<div class="row">
 				<div class = "three columns">
 
-					{{ Form::label('book-copy', 'Primjerak knjige') }}
-					{{ Form::file('book-copy', array('placeholder' => 'Primjerak knjige'))}}
-					@if($errors->has('book-copy'))
-						<div class="u-error"> {{ $errors->first('book-copy') }}</div>
+					{{ Form::label('book_copy', 'Primjerak knjige') }}
+					{{ Form::file('book_copy', array('placeholder' => 'Primjerak knjige'))}}
+					@if($errors->has('book_copy'))
+						<div class="u-error"> {{ $errors->first('book_copy') }}</div>
 					@endif
 
 					{{ Form::submit('Pošalji')}}

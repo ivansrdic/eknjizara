@@ -19,126 +19,26 @@
 			<h4>Pregled dostupnih knjiga</h4>
 		</div>
 		<div class = "row text-list">
+			@foreach($books as $book)
 			<div class = "twelve columns margin2000"> <!-- START -->
 				<div class = "row border-bottom">
 					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
+						<h5>{{$book['book_title']}} - {{$book['price']}}</h5>
 						<a href=""><h6>X Ukloni</h6></a>
 					</div>
 				</div>
 				<div class = "row">
 					<div class = "twelve columns">
 						<div class = "twelve columns">
-							<h6>Autori</h6>
-							<a href=""><h6>Opis</h6></a>
+							<h6>{{$book['authors']}}</h6>
+							<a href="{{route('home')}}book/{{$book['book_id']}}"><h6>Opis</h6></a>
 							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
+							<a href="{{route('home')}}{{$book['link_to_PDF']}}"><h6>Knjiga</h6></a>
 						</div>
 					</div>
 				</div>
 			</div><!-- END -->
-			<div class = "twelve columns margin2000"> <!-- START -->
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<a href=""><h6>X Ukloni</h6></a>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Autori</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div>
-					</div>
-				</div>
-			</div><!-- END -->
-			<div class = "twelve columns margin2000"> <!-- START -->
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<a href=""><h6>X Ukloni</h6></a>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Autori</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div>
-					</div>
-				</div>
-			</div><!-- END -->
-			<div class = "twelve columns margin2000"> <!-- START -->
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<a href=""><h6>X Ukloni</h6></a>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Autori</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div>
-					</div>
-				</div>
-			</div><!-- END -->
-			<div class = "twelve columns margin2000"> <!-- START -->
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<a href=""><h6>X Ukloni</h6></a>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Autori</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div>
-					</div>
-				</div>
-			</div><!-- END -->
-			<div class = "twelve columns margin2000"> <!-- START -->
-				<div class = "row border-bottom">
-					<div class = "twelve columns">
-						<h5>Lord of the Rings and The Fellowship of The Ring - 200kn</h5>
-						<a href=""><h6>X Ukloni</h6></a>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "twelve columns">
-						<div class = "twelve columns">
-							<h6>Autori</h6>
-							<a href=""><h6>Opis</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Certifikat</h6></a>
-							<h6>&nbsp;/&nbsp;</h6>
-							<a href=""><h6>Knjiga</h6></a>
-						</div>
-					</div>
-				</div>
-			</div><!-- END -->
+			@endforeach
 		</div>
 	</div>
 </div>

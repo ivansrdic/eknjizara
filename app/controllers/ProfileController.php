@@ -155,14 +155,16 @@ class ProfileController extends BaseController {
                 $authors = $authors . $author->author_name . " " . $author->author_lastname;
             }
             $tmp = array(
+            	'book_id' => $allBooks[$i]->id,
                 'book_title' => $allBooks[$i]->book_title,
                 'authors' => $authors,
-                'link_to_PDF' => $allBooks[$i]->link_to_PDF
+                'link_to_PDF' => $allBooks[$i]->link_to_PDF,
+                'price' => ($allBooks[$i]->stack) ? ($allBooks[$i]->stack->price):("N/A")
             );
             $allBooks[$i] = $tmp;
         }
 
-        return View::make('admin-book-list', $allBooks);
+        return View::make('admin-book-list', array('books' => $allBooks));
 	}
 
 }

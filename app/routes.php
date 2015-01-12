@@ -202,6 +202,11 @@ Route::group(array('before' => 'auth'), function() {
 		'uses' =>  'BookController@postBook'
 	));
 
+	Route::get('/book/delete/{id}', array(
+		'as' => 'delete-book',
+		'uses' => 'BookController@deleteBook'
+	));
+
 	Route::get('/book/buy/{id}', array(
 		'as' => 'buy-book',
 		'uses' =>  'BookController@getBuyBook'

@@ -189,8 +189,7 @@ class BookController extends BaseController {
                 'authors'          => 'required|max:200',
                 'genres'           => 'required|max:200',
                 'publication_year' => 'required',
-                'price'            => 'required',
-                'book_copy'        => 'required'
+                'price'            => 'required'
                 ) 
             );
 
@@ -205,32 +204,29 @@ class BookController extends BaseController {
                 $genres           = Input::get('genres');
                 $publication_year = Input::get('publication_year');
                 $price            = Input::get('price');
-                $path             = 'public/pdf';
+                $path             = 'pdf';
                 $file             = Input::file('book_copy')->move($path, $book_title); 
 
+                /*$tmpAuthors = explode(", ", $authors);
+                $authors = array();
+                foreach($tmpAuthors as $author) {
+                    $authors[] = explode(" ", $author);
+                }
+                $genres = explode(", ", $genres);*/
+                
                 $book = new Book();
                 $book->book_title = $book_title;
                 $book->publication_year = $publication_year;
-                $book->link_to_PDF = 'public/pdf/' . $book_title;
+                $book->link_to_PDF = 'pdf/' . $book_title . '.pdf';
 
-                $book = ModelBooks::addBook($book, $authors, $genres, $price);
-
-                if (Input::hasFile('book_copy')) {
-                    $viewParameters = array(
-                            'book_title'       => $book_title,
-                            'authors'          => $authors,
-                            'genres'           => $genres,
-                            'publication_year' => $publication_year,
-                            'price'            => $price,
-                            'book_copy'        => $file,
-                            'link_to_PDF'      => $link_to_PDF
-                            );
-
-                    return View::make('add-book', $viewParameters);
+                if (ModelBooks::addBook($book, $authors, $genres, $price)) {
+                    return Redirect::route('add-book')
+                        ->with('global','Your book has been saved!');
                 } else {
                     return Redirect::route('add-book')
                         ->with('global','Your book has not been saved!');
                 }
+                var_dump($authors);
             }
 
     }
