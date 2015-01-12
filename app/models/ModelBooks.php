@@ -222,6 +222,7 @@ class ModelBooks {
         return Book::orderBy('publication_year', 'desc')->get()->all();
     }
 
+
     /**
     * Updatea stog kupnje za odredenu knjigu po formuli iz dokumentacije.
     * @param Book &$book - knjiga ciji stog treba updateati, mora biti konkretna instanca vec postojece knjige,

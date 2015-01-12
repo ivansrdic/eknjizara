@@ -171,7 +171,7 @@ class BookController extends BaseController {
         if (! Auth::user()->isAdmin)
             return Redirect::route('home') 
                 ->with('global', 'You do not have permission for this action.');
-
+        
         return View::make('add-book');
 
     }
@@ -182,7 +182,7 @@ class BookController extends BaseController {
         if (! Auth::user()->isAdmin) 
             return Redirect::route('home') 
                 ->with('global', 'You do not have permission for this action.');
-
+        
         $validator = Validator::make(Input::all(),
             array(
                 'book_title'       => 'required|max:100',
@@ -210,20 +210,22 @@ class BookController extends BaseController {
 
                 $book = new Book();
                 $book->book_title = $book_title;
+                $book->publication_year = $publication_year;
+                $book->link_to_PDF = 'public/pdf/' . $book_title;
+
                 $book = ModelBooks::addBook($book, $authors, $genres, $price);
 
-                if($book->save()) {
-                    
-                    if (Input::hasFile('book_copy')) {
-                        $viewParameters = array(
+                if (Input::hasFile('book_copy')) {
+                    $viewParameters = array(
                             'book_title'       => $book_title,
                             'authors'          => $authors,
                             'genres'           => $genres,
                             'publication_year' => $publication_year,
                             'price'            => $price,
-                            'book_copy'        => $file
+                            'book_copy'        => $file,
+                            'link_to_PDF'      => $link_to_PDF
                             );
-                    }
+
                     return View::make('add-book', $viewParameters);
                 } else {
                     return Redirect::route('add-book')

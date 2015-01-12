@@ -137,8 +137,34 @@ class ProfileController extends BaseController {
 				->with('global', 'You do not have permission for this action.');
 
 		$viewParameters = BookstoreStatistics::all()->first;
-		var_dump($viewParameters);
 		return View::make('profile', $viewParameters);
 	}
 
+	public function getBookList() {
+		// provjera administratorskih ovlasti
+		if (! Auth::user()->isAdmin) 
+			return Redirect::route('home') 
+				->with('global', 'You do not have permission for this action.');
+		
+		$allBooks = Book::orderBy('book_title', 'asc')->get()->all();
+
+        for($i = 0; $i < count($allBooks); $i++) {
+            $authors = "";
+            foreach ($allBooks[$i]->authors as $author) {
+                $authors = ($authors == "") ? "" : $authors . ", ";
+                $authors = $authors . $author->author_name . " " . $author->author_lastname;
+            }
+            $tmp = array(
+                'book_title' => $allBooks[$i]->book_title,
+                'authors' => $authors,
+                'link_to_PDF' => $allBooks[$i]->link_to_PDF
+            );
+            $allBooks[$i] = $tmp;
+        }
+
+        return View::make('admin-book-list', $allBooks);
+	}
+
 }
+
+?>
