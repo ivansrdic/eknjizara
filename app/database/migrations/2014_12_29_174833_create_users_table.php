@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration {
 			$table->string('code');				// activation code 
 			$table->string('remember_token'); 
 			$table->integer('active')->default('0'); 
-			$table->integer('isAdmin'); 
+			$table->integer('isAdmin');
 
 			$table->timestamps(); // creating created_at & updated_at
 		});

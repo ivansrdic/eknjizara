@@ -111,7 +111,7 @@ class BookController extends BaseController {
         $book = Book::find(Input::get('book_id'));
 
         // dodati autoriziranog usera
-        ModelBooks::buyBook(User::find(Auth::user()->id), $book);
+        ModelBooks::buyBook(Auth::user(), $book);
         return Redirect::route('profile');
     }
 
