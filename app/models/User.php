@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	// many-to-many relationships (purchases)
 	public function purchases() { 
-		return $this->belongsToMany('Book', 'purchase_book', 'user_id', 'book_id_foreign')->withPivot('certificate_link', 'purchase_price', 'book_id_foreign')->withTimestamps();
+		return $this->belongsToMany('Book', 'purchase_book', 'user_id', 'book_id_foreign')->withPivot('certificate_link', 'purchase_price', 'user_id_seller')->withTimestamps();
 	}
 
 

@@ -21,37 +21,22 @@ class ProfileController extends BaseController {
 	    );
 
 		// pronadi kupljene knjige od tog korisnika
-		$purchases = Auth::user()->purchases();
-		if(!is_array($purchases)) {
-			$purchases = array($purchases);
-		}
+		$purchases = ModelUsers::getBoughtBooks(Auth::user());
 		$viewParametersBooks = array();
 
 		if($purchases != null) {
 			foreach ($purchases as $purchase) {
-				var_dump($purchase);
-				/*$book = Book::find($purchase->book_id_foreign);
-	            $authors = "";
-	            foreach ($book->authors as $author) {
-	                $authors = ($authors == "") ? "" : $authors . ", ";
-	                $authors = $authors . $author->author_name . " " . $author->author_lastname;
-	            }
-
-	            $genres = "";
-	            foreach ($book->genres as $genre) {
-	                $genres = ($genres == "") ? "" : $genres . ", ";
-	                $genres = $genres . $genre->genre_name;
-	            }
+				$book = Book::find($purchase->pivot->book_id_foreign);
 
 	            array_push($viewParametersBooks, array(
 	                'book_title' => $book->book_title,
-	                'price' => $purchase->purchase_price,
-	                'date' => $purchase->created_at,
-	                'seller' => User::find($purchase->user_id_seller)->username,
+	                'price' => $purchase->pivot->purchase_price,
+	                'date' => $purchase->pivot->created_at,
+	                'seller' => User::find($purchase->pivot->user_id_seller)->username,
 	                'book_description' => route('book') . "/" . $book->id,
-	                'book_certificate' => "",
-	                'book_pdf' => route('home') . "pdf/" . $book->id . ".pdf"
-	            ));*/
+	                'book_certificate' => $purchase->pivot->certificate_link,
+	                'book_pdf' => $purchase->pivot->link_to_PDF
+	            ));
 	        }
 	    }
 

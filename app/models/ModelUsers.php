@@ -259,9 +259,9 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
   */
   public static function getBoughtBooks(User $user) {
 
-    $bought_books[] = array(); 
-    $titles[] = array(); 
-    $purchases[] = array(); 
+    $bought_books = array(); 
+    $titles = array(); 
+    $purchases = array(); 
     foreach($user->purchases as $purchase) {
       
       $id = $purchase->pivot->book_id_foreign; 
