@@ -84,8 +84,33 @@ class ProfileController extends BaseController {
 
 
 	public function getPartnerList() {
-		$partners = ModelUsers::getPartners();
+		$user = Auth::user();
+		$partners = array();  
+		$users = DB::table('purchase_book')
+                    ->where('user_id', '=', $user->id)
+                    ->orWhere('user_id_seller', '=', $user->id)
+                    ->get();
+        var_dump($users); 
+		foreach($user->purchases as $purchase) {
+		 		
+
+		 		$user_seller = $purchase->pivot->user_id_seller;
+		 		if(!(in_array($user_seller, $partners))) {
+		 			 array_push($partners, 
+		 			 	array(
+		                'username' => User::find($user_seller)->username,
+		                'book_title' => Book::find($purchase->pivot->book_id_foreign)->book_title,
+		                'email' => $user->email
+	            	)
+		 			 	);
+		 			array_push($partners, $purchase->pivot->user_id_seller);
+		 			var_dump("wat");
+		 		}	
+		 }
+		 var_dump($partners);
+
 		// zelic treba srediti funkciju
+		var_dump("test");
 		return View::make('client-partner-list', $partners);
 	}
 
