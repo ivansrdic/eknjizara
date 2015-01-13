@@ -157,7 +157,7 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
           $user->statistics->number_of_client_partners++;
       }
       
-      
+      ModelUsers::recalculateRanck($user);
       try {  
           if ($user->statistics->save()) return true;  
               return false;
@@ -173,8 +173,9 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
       $ranck += ($user->statistics->total_bought_bookstore + $user->statistics->total_bought_users) / 5;
       $ranck += $user->statistics->total_price_books / 1200;
       $ranck += $user->statistics->number_of_client_partners / 5;
-      $user->statistics->user_rank = intval($ranck);
-      $user->save();
+      
+      $user->statistics->user_rank = $ranck;
+      $user->push();
   }
 
   /**
