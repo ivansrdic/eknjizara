@@ -235,7 +235,7 @@ class ModelBooks {
         if ($stack->stack_rank == $stack->max_stack_rank) {
             $stack->stack_rank = 0;
             $stack->price = $stack->starting_price;
-            $stack->client_with_lowest_price = 0;
+            $stack->client_with_lowest_price = 1;
         } else {
             $stack->stack_rank++;
             $stack->price -= $stack->stack_rank * $stack->percentage_reduction_price * $stack->price;
@@ -257,12 +257,14 @@ class ModelBooks {
     */
     public static function buyBook(User $user, Book $book) {
 
+      // if ($book->stack->client_with_lowest_price == $user->id) return false;
+
       $bookstore = BookstoreStatistics::all()->first();
       $bookstore->total_number_of_sold_titles++;
 
       $stack = $book->stack; 
       $id_seller = $stack->client_with_lowest_price;
-      if($id_seller == '1') {
+      if($id_seller == 1) {
         $purchase_price = $stack->starting_price;
         $bookstore->total_earnings += $purchase_price;
       } else {
@@ -273,9 +275,14 @@ class ModelBooks {
 
       
       //certificate link ???
+      
       $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'Link_na_certifikat'));
+      
+      ModelUsers::updateUserStatistics($user, $book);
       ModelBooks::updateStack($book, $user->id);
       $bookstore->save();
+      
+      return true;
     }
 
 

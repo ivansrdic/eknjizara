@@ -139,20 +139,22 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
   *  @return True ako uspije
   *          False ako negdje se pojavi pogreška 
   */
-  public static function updateUserStatistics(User &$user, Book $book) {
+  public static function updateUserStatistics(User $user, Book $book) {
       
-      $seller = $book->stack->client_with_lowest_price; 
+      $seller = $book->stack->client_with_lowest_price;
+      $price = $book->stack->price;
 
-      if ($seller == '0') {
-        $price = $book->stack->starting_price;  
+
+      if ($seller == 1) { 
         $user->statistics->total_bought_bookstore++;
         $user->statistics->total_price_books = ($user->statistics->total_price_books) + $price; 
       
       } else {
-        $price = $book->stack->price;
         $user->statistics->total_bought_users++;
         $user->statistics->total_price_books = ($user->statistics->total_price_books) + $price;
-        $user->statistics->number_of_client_partners++; 
+        //treba napravit
+        // if (User::find($seller) in $user->)
+          $user->statistics->number_of_client_partners++;
       }
       
       
@@ -162,6 +164,17 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
          } catch (\Illuminate\Database\QueryException $e) {
               return false;
          }
+
+      ModelUsers::recalculateRanck($user);
+  }
+
+  public static function recalculateRanck($user) {
+      $ranck = 0;
+      $ranck += ($user->statistics->total_bought_bookstore + $user->statistics->total_bought_users) / 5;
+      $ranck += $user->statistics->total_price_books / 1200;
+      $ranck += $user->statistics->number_of_client_partners / 5;
+      $user->statistics->user_rank = intval($ranck);
+      $user->save();
   }
 
   /**
@@ -274,6 +287,7 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
     // return $bought_books; // array of book ids
     return $purchases; // array kupnji iz tablice 
   }
+
 
 
 }
