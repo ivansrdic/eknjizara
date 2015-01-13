@@ -189,7 +189,8 @@ class BookController extends BaseController {
                 'authors'          => 'required|max:200',
                 'genres'           => 'required|max:200',
                 'publication_year' => 'required',
-                'price'            => 'required'
+                'price'            => 'required',
+                'pagenumber'       => 'required'
                 ) 
             );
 
@@ -200,14 +201,16 @@ class BookController extends BaseController {
                 ->withInput(); 
         } else {
                 $book_title       = Input::get('book_title'); 
-                $tmp1Authors       = Input::get('authors');
+                $tmp1Authors      = Input::get('authors');
                 $tmpGenres        = Input::get('genres');
                 $publication_year = Input::get('publication_year');
                 $price            = Input::get('price');
-                $path             = 'pdf';
-                $file             = Input::file('book_copy')->move($path, $book_title); 
+                $pagenumber       = Input::get('pagenumber');
+                $path_book        = 'pdf';
+                $file_book        = Input::file('book_copy')->move($path_book, $book_title); 
+                $path_picture     = 'images/book-covers';
+                $file_picture     = Input::file('book_picture')->move($path_picture, $book_title);
 
-                
                 $tmp1Authors = explode(", ", $tmp1Authors);
                 $authors = array();
                 $j = count($tmp1Authors);
@@ -221,7 +224,6 @@ class BookController extends BaseController {
                     $authors[$i]->author_name     = $tmpAuthors[$i][0];
                     $authors[$i]->author_lastname = $tmpAuthors[$i][1];
                 }
-               
                 
                 $genres = array();
                 $tmpGenres = explode(", ", $tmpGenres);
@@ -232,9 +234,11 @@ class BookController extends BaseController {
                 }
 
                 $book = new Book();
-                $book->book_title = $book_title;
+                $book->book_title       = $book_title;
                 $book->publication_year = $publication_year;
-                $book->link_to_PDF = 'pdf/' . $book_title . '.pdf';
+                $book->pagenumber       = $pagenumber;
+                $book->link_to_PDF      = 'pdf/' . $book_title . '.pdf';
+                $book->link_picture     = 'images/book-covers/' . $book_title . 'jpg'; 
 
                 if (ModelBooks::addBook($book, $authors, $genres, $price)) {
                     return Redirect::route('add-book')
