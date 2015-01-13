@@ -19,7 +19,7 @@
 		<div class="row">
 			<!-- change form url, switch hardcoded data with controller data and check if there is a picture -->
 			<div class = "one-third column">
-				<img class = "book-cover-spec" src="{{ URL::asset('images/book-covers/1.jpg') }}">
+				<img class = "book-cover-spec" src="{{ URL::asset($link_picture) }}">
 			</div>
 			<div class = "two-thirds column">
 				<div class = "row">

@@ -43,4 +43,8 @@ class Book extends Eloquent implements UserInterface, RemindableInterface {
       return $this->belongsToMany('User', 'purchase_book', 'book_id_foreign', 'user_id')->withPivot('certificate_link', 'purchase_price')->withTimestamps();
   }
 
+  public function __toString(){
+      return (string)$this->book_id;
+  }
+
 }

@@ -262,7 +262,7 @@ class ModelBooks {
 
       $stack = $book->stack; 
       $id_seller = $stack->client_with_lowest_price;
-      if($id_seller == '0') {
+      if($id_seller == '1') {
         $purchase_price = $stack->starting_price;
         $bookstore->total_earnings += $purchase_price;
       } else {

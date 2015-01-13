@@ -31,7 +31,7 @@ class SearchController extends BaseController {
                 'publication_year' => $book->publication_year,
             ));
         }
-        var_dump($viewParameters);
+        // var_dump($viewParameters);
         
         return View::make('search', array('books' => $viewParameters, 'countBooks' => 0));
     }
@@ -65,9 +65,9 @@ class SearchController extends BaseController {
                 'publication_year' => $book->publication_year,
             ));
         }
-        var_dump($viewParameters);
+        // var_dump($viewParameters);
 
-        return View::make('search', array('books' => $viewParameters, 'countBooks' => count($viewParameters)));
+        return View::make('search', array('books' => $viewParameters, 'countBooks' => 0));
     }
 
 }
