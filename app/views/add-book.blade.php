@@ -67,6 +67,12 @@
 						<div class="u-error"> {{ $errors->first('price') }}</div>
 					@endif
 
+					{{ Form::label('pagenumber', 'Broj stranica') }}
+					{{ Form::text('pagenumber', '', array('placeholder' => 'Broj stranica'))}}
+					@if($errors->has('pagenumber'))
+						<div class="u-error"> {{ $errors->first('pagenumber') }}</div>
+					@endif
+
 				</div>
 			</div>
 			<div class="row">
@@ -76,6 +82,12 @@
 					{{ Form::file('book_copy', array('placeholder' => 'Primjerak knjige'))}}
 					@if($errors->has('book_copy'))
 						<div class="u-error"> {{ $errors->first('book_copy') }}</div>
+					@endif
+
+					{{ Form::label('book_picture', 'Naslovna strana') }}
+					{{ Form::file('book_picture', array('placeholder' => 'Naslovna strana'))}}
+					@if($errors->has('book_picture'))
+						<div class="u-error"> {{ $errors->first('book_picture') }}</div>
 					@endif
 
 					{{ Form::submit('Pošalji')}}
