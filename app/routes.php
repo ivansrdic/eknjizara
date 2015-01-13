@@ -84,8 +84,300 @@ Route::get('/test', array(
 		$authors[1]->author_name = 'J.R.R';
 		$authors[1]->author_lastname = 'Tolkien';
 		
-
 		ModelBooks::addBook($book, $authors, $genres, 10000);
+
+
+		$book = new Book();
+		$book->book_title = 'Combray';
+		$book->link_picture = 'images/book-covers/5.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.combray.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Marcel';
+		$author->author_lastname = 'Proust';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'fantasy';
+
+		ModelBooks::addBook($book, array($author), $genres, 200);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Baraka pet be';
+		$book->link_picture = 'images/book-covers/6.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.baraka_pet_be.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Miroslav';
+		$author->author_lastname = 'Krleža';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'fantasy';
+
+		ModelBooks::addBook($book, array($author), $genres, 200);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Zlatarovo zlato';
+		$book->link_picture = 'images/book-covers/7.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.zlatarovo_zlato.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'August';
+		$author->author_lastname = 'Šenoa';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'fantasy';
+
+		ModelBooks::addBook($book, array($author), $genres, 200);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Alkar';
+		$book->link_picture = 'images/book-covers/8.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.alkar.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Dinko';
+		$author->author_lastname = 'Šimunović';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'fantasy';
+
+		ModelBooks::addBook($book, array($author), $genres, 200);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Kraljević i prosjak';
+		$book->link_picture = 'images/book-covers/9.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.kraljevic_i_prosjak.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Mark';
+		$author->author_lastname = 'Twain';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'comedy';
+		$genres[1]->genre_name = 'drama';
+
+		ModelBooks::addBook($book, array($author), $genres, 235);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Lovac u žitu';
+		$book->link_picture = 'images/book-covers/10.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.lovac_u_zitu.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'J.D.';
+		$author->author_lastname = 'Salinger';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'fantasy';
+
+		ModelBooks::addBook($book, array($author), $genres, 200);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Pakao';
+		$book->link_picture = 'images/book-covers/11.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.pakao.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Dante';
+		$author->author_lastname = 'Alighieri';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'triler';
+		$genres[1]->genre_name = 'biography';
+
+		ModelBooks::addBook($book, array($author), $genres, 876);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Prijan Lovro';
+		$book->link_picture = 'images/book-covers/12.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.prijan_lovro.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'August';
+		$author->author_lastname = 'Šenoa';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'sf';
+
+		ModelBooks::addBook($book, array($author), $genres, 128);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Prokleta avlija';
+		$book->link_picture = 'images/book-covers/13.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.prokleta_avlija.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Ivo';
+		$author->author_lastname = 'Andrić';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'fantasy';
+
+		ModelBooks::addBook($book, array($author), $genres, 200);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Stranac';
+		$book->link_picture = 'images/book-covers/14.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.stranac.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Albert';
+		$author->author_lastname = 'Camus';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'comedy';
+		$genres[1]->genre_name = 'fantasy';
+
+		ModelBooks::addBook($book, array($author), $genres, 523);
+		unset($book);
+
+
+		$book = new Book();
+		$book->book_title = 'Životinjska farma';
+		$book->link_picture = 'images/book-covers/15.jpg';
+		$book->pagenumber = 250;
+		$book->publication_year = 2005;
+		$book->link_to_PDF = 'www.zivotinjska_farma.hr';
+
+
+		$author = new Author();
+		$author->author_name = 'Geroge';
+		$author->author_lastname = 'Orwell';
+
+		$genres = array(new Genre(), new Genre());
+		$genres[0]->genre_name = 'action';
+		$genres[1]->genre_name = 'drama';
+
+		ModelBooks::addBook($book, array($author), $genres, 423);
+		unset($book);
+
+
+		$name = 'Deni';
+		$lastname = 'Zeleni';
+		$email = 'deni@zeleni.hr';
+		$username = 'greenie';
+		$password = 'droga';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+
+
+		$name = 'Pero';
+		$lastname = 'Masni';
+		$email = 'pero@masni.hr';
+		$username = 'mast';
+		$password = 'oblikovanje';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+		
+
+		$name = 'Seke';
+		$lastname = 'Sekulić';
+		$email = 'seke@lud.hr';
+		$username = 'puding';
+		$password = 'puding';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+		
+
+		$name = 'Dario';
+		$lastname = 'Košpa';
+		$email = 'dario93@gmail.hr';
+		$username = 'dario93';
+		$password = 'sjemenka';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+		
+
+		$name = 'Marko';
+		$lastname = 'Radio';
+		$email = 'marko.radio@fer.hr';
+		$username = 'radio';
+		$password = 'antena';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+	
+
+		$name = 'Nikola';
+		$lastname = 'Rabjac';
+		$email = 'nikica@fer.hr';
+		$username = 'nikica';
+		$password = 'program';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+				
+
+		$name = 'Haris';
+		$lastname = 'Lončar';
+		$email = 'harry@hotmail.hr';
+		$username = 'harry34';
+		$password = 'hogwarts';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+		
+
+		$name = '¸Elton';
+		$lastname = 'John';
+		$email = 'elton.john@fer.hr';
+		$username = 'faca';
+		$password = 'glazba';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+		
+
+		$name = 'Elvis';
+		$lastname = 'Presley';
+		$email = 'elvis42@fer.hr';
+		$username = 'king';
+		$password = 'heybaby';
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+		
 
 		// if (ModelBooks::deleteBook($book)) return "bravo";
 		// $books = ModelBooks::getBooks('author', array('author_name' => 'Ivo', 'author_lastname' => 'ivica'));
