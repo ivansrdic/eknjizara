@@ -200,20 +200,37 @@ class BookController extends BaseController {
                 ->withInput(); 
         } else {
                 $book_title       = Input::get('book_title'); 
-                $authors          = Input::get('authors');
-                $genres           = Input::get('genres');
+                $tmp1Authors       = Input::get('authors');
+                $tmpGenres        = Input::get('genres');
                 $publication_year = Input::get('publication_year');
                 $price            = Input::get('price');
                 $path             = 'pdf';
                 $file             = Input::file('book_copy')->move($path, $book_title); 
 
-                /*$tmpAuthors = explode(", ", $authors);
-                $authors = array();
-                foreach($tmpAuthors as $author) {
-                    $authors[] = explode(" ", $author);
-                }
-                $genres = explode(", ", $genres);*/
                 
+                $tmp1Authors = explode(", ", $tmp1Authors);
+                $authors = array();
+                $j = count($tmp1Authors);
+
+                foreach ($tmp1Authors as $author) {
+                    $tmpAuthors[] = explode(" ", $author);
+                }
+                
+                for($i=0; $i<$j; $i++) {
+                    $authors[$i] = new Author();
+                    $authors[$i]->author_name     = $tmpAuthors[$i][0];
+                    $authors[$i]->author_lastname = $tmpAuthors[$i][1];
+                }
+               
+                
+                $genres = array();
+                $tmpGenres = explode(", ", $tmpGenres);
+                $j = count($tmpGenres);
+                for($i=0; $i<$j; $i++) {
+                    $genres[$i] = new Genre();
+                    $genres[$i]->genre_name = $tmpGenres[$i]; 
+                }
+
                 $book = new Book();
                 $book->book_title = $book_title;
                 $book->publication_year = $publication_year;
@@ -226,7 +243,7 @@ class BookController extends BaseController {
                     return Redirect::route('add-book')
                         ->with('global','Your book has not been saved!');
                 }
-                var_dump($authors);
+                
             }
 
     }
@@ -235,4 +252,3 @@ class BookController extends BaseController {
 }
 
 
-?>
