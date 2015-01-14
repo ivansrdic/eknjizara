@@ -86,33 +86,39 @@ class ProfileController extends BaseController {
 	public function getPartnerList() {
 		$user = Auth::user();
 		$partners = array();  
-		$users = DB::table('purchase_book')
+		
+		$purchases = DB::table('purchase_book')				// dohvaćanje iz purchase_book kupaca/prodavača prema id-u trenutno ulogiranog usera 
                     ->where('user_id', '=', $user->id)
-                    ->orWhere('user_id_seller', '=', $user->id)
+                    ->orWhere('user_id_seller', $user->id)
                     ->get();
-        var_dump($users); 
-		foreach($user->purchases as $purchase) {
-		 		
+     
+		foreach($purchases as $purchase) {
+		 		$user_seller = $purchase->user_id_seller; 
 
-		 		$user_seller = $purchase->pivot->user_id_seller;
 		 		if(!(in_array($user_seller, $partners))) {
-		 			 array_push($partners, 
-		 			 	array(
-		                'username' => User::find($user_seller)->username,
-		                'book_title' => Book::find($purchase->pivot->book_id_foreign)->book_title,
-		                'email' => $user->email
-	            	)
-		 			 	);
-		 			array_push($partners, $purchase->pivot->user_id_seller);
-		 			var_dump("wat");
-		 		}	
-		 }
-		 var_dump($partners);
+		 			if ($purchase->user_id == $user->id) {    // kupljeno -> ispisuje user_id_seller od koga je kupio 
+		 				array_push($partners, 
+		 			 		array(
+			                	'username' => User::find($user_seller)->username,
+			                	'book_title' => Book::find($purchase->book_id_foreign)->book_title,
+			                	'sold/bought' => 'Kupio od klijenta',
+			                	'created_at' => $purchase->created_at
+	         			));
+		 			} else if ($purchase->user_id_seller == $user->id) {   // prodana -> ispisuje klijenta kojem je prodana 
+		 				 array_push($partners, 
+		 			 		array(
+		                		'username' => User::find($purchase->user_id)->username,
+		                		'book_title' => Book::find($purchase->book_id_foreign)->book_title,
+		                		'sold/bought' => 'Prodano klijentu',
+		                		'created_at' => $purchase->created_at
+	         			));
+		 		}
+		 	}	
 
-		// zelic treba srediti funkciju
-		var_dump("test");
-		return View::make('client-partner-list', $partners);
+		 }
+		return View::make('client-partner-list', array('partners' => $partners));
 	}
+
 
 
 	public function getRegisteredClients() {
