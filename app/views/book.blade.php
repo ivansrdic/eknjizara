@@ -38,8 +38,13 @@
 															'2' => '2',
 															'3' => '3',
 															'4' => '4',
-															'5' => '5'
-															), '5') }}
+															'5' => '5',
+															'6' => '6',
+															'7' => '7',
+															'8' => '8',
+															'9' => '9',
+															'10' => '10'
+															), '10') }}
 
 							{{ Form::hidden('type', 'rate') }}
 							{{ Form::hidden('book_id', $book_id) }}
@@ -51,7 +56,7 @@
 					</div>
 					<div class = "one-half column">
 						<h5>Ocjena knjige</h5>
-						<h5 class = "margin0020">{{$grade}}/5</h5>
+						<h5 class = "margin0020">{{$grade}}/10</h5>
 						<h5>Stanje stoga</h5>
 						<h5>{{$stack_rank}}/8</h5>
 					</div>

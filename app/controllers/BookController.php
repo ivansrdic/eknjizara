@@ -46,11 +46,11 @@ class BookController extends BaseController {
         $book = Book::find(Input::get('book_id'));
         if (Input::get('type') == 'rate') {
             // dodati autoriziranog usera
-            ModelUsers::saveGrade(User::find(2), $book, Input::get('rating'));
+            ModelUsers::saveGrade(User::find(Auth::user()->id), $book, Input::get('rating'));
 
         } elseif (Input::get('type') == 'comment') {
             // dodati autoriziranog usera
-            ModelUsers::saveComment(User::find(2), $book, Input::get('comment'));
+            ModelUsers::saveComment(User::find(Auth::user()->id), $book, Input::get('comment'));
         }
         return Redirect::route('book', $book->book_id);
     }

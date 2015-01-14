@@ -130,6 +130,15 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
     return $statistics; 
   }
 
+  /**
+  *   Metoda vraća statistiku knjižare.
+  *   @return bookstore_statistics entry
+  */
+  public static function getBookstoreStatistics() {
+
+    return DB::table('bookstore_statistics')->first();
+  }
+
 
   /**
   *  Update-a statistiku predanog usera i knjige koju je kupio , ovisno o informacijama o stacku te knjige 

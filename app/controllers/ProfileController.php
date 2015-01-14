@@ -3,45 +3,58 @@ class ProfileController extends BaseController {
 
 	public function getProfile() {
 		// pronadi korisnika prema korisnickom imenu
-		$id = Auth::id();
-		$user = User::find($id);
-		if ($user == null) return View::make('profile', $user);
+		$user = Auth::user();
+		$id = $user->id;
 
-		// pronadi statistiku korisnika
-		$statistics = ModelUsers::getUserStatistics($id);
-		$total_bought_books = $statistics->total_bought_bookstore + $statistics->total_bought_users;
+		if($user->isAdmin) {
+			// pronađi statistiku knjižare
+			$statistics = ModelUsers::getBookstoreStatistics();
 
-		$viewParametersStatistics = array(
-			'total_bought_books' => $total_bought_books, 
-	        'total_bought_bookstore' => $statistics->total_bought_bookstore,
-	        'total_bought_users' => $statistics->total_bought_users,
-	        'total_price_books' => $statistics->total_price_books,
-	        'number_of_client_partners' => $statistics->number_of_client_partners,
-	        'user_rank' => $statistics->user_rank 
-	    );
+			$viewParametersStatistics = array(
+				'total_number_of_titles' => $statistics->total_number_of_titles, 
+		        'total_number_of_sold_titles' => $statistics->total_number_of_sold_titles,
+		        'total_earnings' => $statistics->total_earnings,
+		        'commission_earnings' => $statistics->commission_earnings
+		    );
+			
 
-		// pronadi kupljene knjige od tog korisnika
-		$purchases = ModelUsers::getBoughtBooks(Auth::user());
-		$viewParametersBooks = array();
+		    return View::make('profile', array('bookstore' => $viewParametersStatistics));
+		} else {
+			// pronadi statistiku korisnika
+			$statistics = ModelUsers::getUserStatistics($id);
+			$total_bought_books = $statistics->total_bought_bookstore + $statistics->total_bought_users;
 
-		if($purchases != null) {
-			foreach ($purchases as $purchase) {
-				$book = Book::find($purchase->pivot->book_id_foreign);
+			$viewParametersStatistics = array(
+				'total_bought_books' => $total_bought_books, 
+		        'total_bought_bookstore' => $statistics->total_bought_bookstore,
+		        'total_bought_users' => $statistics->total_bought_users,
+		        'total_price_books' => $statistics->total_price_books,
+		        'number_of_client_partners' => $statistics->number_of_client_partners,
+		        'user_rank' => $statistics->user_rank 
+		    );
 
-	            array_push($viewParametersBooks, array(
-	                'book_title' => $book->book_title,
-	                'price' => $purchase->pivot->purchase_price,
-	                'date' => $purchase->pivot->created_at,
-	                'seller' => User::find($purchase->pivot->user_id_seller)->username,
-	                'book_description' => route('book') . "/" . $book->id,
-	                'book_certificate' => $purchase->pivot->certificate_link,
-	                'book_pdf' => $purchase->pivot->link_to_PDF
-	            ));
-	        }
-	    }
+			// pronadi kupljene knjige od tog korisnika
+			$purchases = ModelUsers::getBoughtBooks(Auth::user());
+			$viewParametersBooks = array();
 
-		return View::make('profile', array('user' => $viewParametersStatistics, 'books' => $viewParametersBooks));
+			if($purchases != null) {
+				foreach ($purchases as $purchase) {
+					$book = Book::find($purchase->pivot->book_id_foreign);
 
+		            array_push($viewParametersBooks, array(
+		                'book_title' => $book->book_title,
+		                'price' => $purchase->pivot->purchase_price,
+		                'date' => $purchase->pivot->created_at,
+		                'seller' => User::find($purchase->pivot->user_id_seller)->username,
+		                'book_description' => route('book', $book->book_id),
+		                'book_certificate' => $purchase->pivot->certificate_link,
+		                'book_pdf' => $purchase->pivot->link_to_PDF
+		            ));
+		        }
+		    }
+
+			return View::make('profile', array('user' => $viewParametersStatistics, 'books' => $viewParametersBooks));
+		}
 	}
 
 
@@ -61,7 +74,7 @@ class ProfileController extends BaseController {
 			return Redirect::route('account-change-password')
 				->withErrors($validator);
 		} else {
-			$user 		  = User::find(Auth::user()->id);
+			$user 		  = Auth::user();
 			$old_password = Input::get('old_password');
 			$password 	  = Input::get('password');
 
@@ -72,14 +85,14 @@ class ProfileController extends BaseController {
 					return Redirect::route('edit')
 						->with('global', 'Your password has been changed.');
 				} else {
-					return Redirect::route('edit')
-						->with('global', 'Your old password is incorrect.');
+					return Redirect::route('edit-profile')
+						->with('global', 'Your password could not be changed.');
 				}
+			} else {
+				return Redirect::route('edit')
+					->with('global', 'Your old password is incorrect.');
 			}
 		}
-
-		return Redirect::route('account-change-password')
-			->with('global', 'Your password could not be changed.');
 	}
 
 
@@ -150,7 +163,7 @@ class ProfileController extends BaseController {
 	}
 
 
-	public function getBookstoreStatistics() {
+	/*public function getBookstoreStatistics() {
 		// provjera administratorskih ovlasti
 		if (! Auth::user()->isAdmin) 
 			return Redirect::route('home') 
@@ -158,7 +171,7 @@ class ProfileController extends BaseController {
 
 		$viewParameters = BookstoreStatistics::all()->first;
 		return View::make('profile', $viewParameters);
-	}
+	}*/
 
 	public function getBookList() {
 		// provjera administratorskih ovlasti
