@@ -28,6 +28,10 @@
 
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.main {
+  width: 100%; 
+  margin: 0;
+  padding: 0; }
 .container {
   position: relative; 
   width: 100%; 
@@ -121,11 +125,12 @@ are based on 10px sizing. So basically 1.5rem = 15px :) */
 html { 
   font-size: 62.5%; } 
 body {
+  background-color: #F5F5F5;
   font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
   line-height: 1.6;
   font-weight: 400;
   font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #222; }
+  color: #81888D; }
 
 
 /* Typography
@@ -134,12 +139,12 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 2rem;
   font-weight: 300; }
-h1 { font-size: 4.0rem; line-height: 1.2;  letter-spacing: -.1rem;}
+h1 { font-size: 4.0rem; line-height: 1.2;  letter-spacing: -.1rem; }
 h2 { font-size: 3.6rem; line-height: 1.25; letter-spacing: -.1rem; }
 h3 { font-size: 3.0rem; line-height: 1.3;  letter-spacing: -.1rem; }
 h4 { font-size: 2.4rem; line-height: 1.35; letter-spacing: -.08rem; }
 h5 { font-size: 1.8rem; line-height: 1.5;  letter-spacing: -.05rem; }
-h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; font-weight: 700; }
 
 /* Larger than phablet */
 @media (min-width: 550px) {
@@ -170,7 +175,7 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  display: inline-block;
+  display: block;
   height: 38px;
   padding: 0 30px;
   color: #555;
@@ -197,9 +202,10 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-  color: #333;
+  color: #EC583A;
   border-color: #888;
-  outline: 0; }
+  outline: 0;
+  background-color: #C7D0D5; }
 .button.button-primary,
 button.button-primary,
 input[type="submit"].button-primary,
@@ -264,7 +270,7 @@ input[type="url"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  border: 1px solid #33C3F0;
+  border: 1px solid #EC583A;
   outline: 0; }
 label,
 legend {
@@ -370,13 +376,27 @@ p {
   float: right; }
 .u-pull-left {
   float: left; }
-.margin2000 {
-  padding-top: 20px; }
-.margin0020 {
-  margin-bottom: 20px; }
-.margin2020 {
-  margin-top: 20px;
-  margin-bottom: 20px; }
+.margin2000{
+  margin-top: 2rem; }
+.margin2020{
+  margin-top: 2rem;
+  margin-bottom: 2rem; }
+.margin0020{
+  margin-bottom: 2rem; }
+.no-margin{
+  margin: 0; }
+.display-inline-block{
+  display: inline-block; }
+.border-bottom{
+  border-bottom: solid 1px #D2D2D2; }
+.border-top{
+  border-top: solid 1px #d2d2d2; }
+.border-right{
+  border-right: solid 1px #d2d2d2; }
+.center {
+  text-align: center; }
+.u-justify {
+  text-align: justify; }
 .u-center {
   text-align: center; }
 .u-error {

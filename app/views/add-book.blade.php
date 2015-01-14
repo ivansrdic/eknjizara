@@ -76,6 +76,17 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class = "twelve columns">
+
+					{{ Form::label('description', 'Opis knjige') }}
+					{{ Form::textarea('description', '', array('placeholder' => 'Opis knjige')) }}
+					@if($errors->has('description'))
+						<div class="u-error"> {{ $errors->first('description') }}</div>
+					@endif
+
+				</div>	
+			</div>
+			<div class="row">
 				<div class = "three columns">
 
 					{{ Form::label('book_copy', 'Primjerak knjige') }}
@@ -84,8 +95,8 @@
 						<div class="u-error"> {{ $errors->first('book_copy') }}</div>
 					@endif
 
-					{{ Form::label('book_picture', 'Naslovna strana') }}
-					{{ Form::file('book_picture', array('placeholder' => 'Naslovna strana'))}}
+					{{ Form::label('book_picture', 'Naslovnica knjige') }}
+					{{ Form::file('book_picture', array('placeholder' => 'Naslovnica knjige'))}}
 					@if($errors->has('book_picture'))
 						<div class="u-error"> {{ $errors->first('book_picture') }}</div>
 					@endif

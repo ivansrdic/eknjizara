@@ -15,6 +15,13 @@
 @section('body')
 <div class = "main content">
 	<div class = "container margin2000">
+		@if(Session::has('global'))
+			<div class = "row">
+				<div class = "twelve columns">
+					<h4 class="u-center u-error">{{Session::get('global')}}</h4>
+				</div>
+			</div>
+		@endif
 		<div class = "row">
 			<h4>Pregled dostupnih knjiga</h4>
 		</div>
@@ -23,8 +30,8 @@
 			<div class = "twelve columns margin2000"> <!-- START -->
 				<div class = "row border-bottom">
 					<div class = "twelve columns">
-						<h5>{{$book['book_title']}} - {{$book['price']}}</h5>
-						<a href=""><h6>X Ukloni</h6></a>
+						<h5>{{$book['book_title']}} - {{round($book['price'], 2)}}</h5>
+						<a href="{{route('delete-book', $book['book_id'])}}"><h6>X Ukloni</h6></a>
 					</div>
 				</div>
 				<div class = "row">

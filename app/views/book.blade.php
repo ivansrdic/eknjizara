@@ -17,13 +17,12 @@
 <div class = "main content">
 	<main class = "container margin2000">
 		<div class="row margin0020">
-			<!-- change form url, switch hardcoded data with controller data and check if there is a picture -->
 			<div class = "one-third column">
 				<img class = "book-cover-spec" src="{{ URL::asset($link_picture) }}">
 			</div>
 			<div class = "two-thirds column">
 				<div class = "row">
-					<h3 class="display-inline-block">{{$book_title}}&nbsp;</h3><h5 class="display-inline-block">({{$pagenumber}} stranica)</h5>
+					<h3 class="display-inline-block">{{$book_title}}&nbsp;</h3><h5 class="display-inline-block">({{$publication_year}})</h5>&nbsp;&nbsp;<h5 class="display-inline-block">{{$pagenumber}} stranica</h5>
 				</div>
 				<div class="row">
 					<h5>{{$authors}}</h5>
@@ -61,6 +60,18 @@
 						<h5>{{$stack_rank}}/8</h5>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns">
+				<h3>Opis knjige</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns">
+				<p class="u-justify">
+					{{ $description }}
+				</p>
 			</div>
 		</div>
 		<div class="row">
