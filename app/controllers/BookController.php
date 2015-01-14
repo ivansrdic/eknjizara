@@ -104,10 +104,11 @@ class BookController extends BaseController {
 
     public function postBuyBook() {
         $book = Book::find(Input::get('book_id'));
-
-        // dodati autoriziranog usera
-        ModelBooks::buyBook(Auth::user(), $book);
-        return Redirect::route('profile');
+        if ($book->userPurchases()->wherePivot('user_id', '=', Auth::user()->id)->count() == 0) {
+            ModelBooks::buyBook(Auth::user(), $book);
+            return Redirect::route('profile')->with('global', "You just bought ".$book->book_title.". Enjoy your book.");
+        }
+        return Redirect::route('profile')->with('global', "You already own ".$book->book_title.".");
     }
 
     public function getHome() {

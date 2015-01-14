@@ -270,8 +270,15 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
   * @param $grade   - ocjena knjige
   */
   public static function saveGrade($user, $book, $grade) {
-
-    $book->userGrades()->attach($user->id, array('grade' => $grade)); 
+    $old_grade = DB::table('rating_book')
+                    ->where('user_id', '=', $user->id)
+                    ->where('book_id_foreign', '=', $book->book_id)
+                    ->get(); 
+    if( $old_grade == null) {
+      $book->userGrades()->attach($user->id, array('grade' => $grade));
+    } else { 
+      $book->userGrades()->updateExistingPivot($user->id, array('grade' => $grade));
+    }
   }
 
 

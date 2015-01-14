@@ -15,6 +15,13 @@
 @section('body')
 <div class = "main content">
 	<main class = "container margin2000">
+		@if(Session::has('global'))
+			<div class = "row">
+				<div class = "twelve columns">
+					<h4 class="u-center u-error">{{Session::get('global')}}</h4>
+				</div>
+			</div>
+		@endif
 		<div class = "row border-bottom margin0020">
 			<div class = "twelve columns profile-name">
 				<h2 class = "no-margin">{{ Auth::user()->username }}</h2>

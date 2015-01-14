@@ -56,7 +56,7 @@
 					</div>
 					<div class = "one-half column">
 						<h5>Ocjena knjige</h5>
-						<h5 class = "margin0020">{{$grade}}/10</h5>
+						<h5 class = "margin0020">{{round($grade, 1)}}/10</h5>
 						<h5>Stanje stoga</h5>
 						<h5>{{$stack_rank}}/8</h5>
 					</div>
