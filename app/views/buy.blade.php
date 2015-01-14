@@ -31,12 +31,14 @@
 				<div class="row">
 					<div class = "one-half column">
 						<h5>Najniža cijena</h5>
-						<h5 class="margin0020">{{$price}}</h5>
-						{{ Form::open(array('url' => route('buy-book-post'), 'method' => 'POST')) }}
-							{{ Form::hidden('book_id', $book_id) }}
-							{{ Form::submit('Kupi knjigu')}}
+						<h5 class="margin0020">{{round($price, 2)}}</h5>
+						@if(!Auth::user()->isAdmin)
+							{{ Form::open(array('url' => route('buy-book-post'), 'method' => 'POST')) }}
+								{{ Form::hidden('book_id', $book_id) }}
+								{{ Form::submit('Kupi knjigu')}}
 
-						{{ Form::close() }}
+							{{ Form::close() }}
+						@endif
 					</div>
 					<div class = "one-half column">
 						<h5>Broj postojećih kupnji</h5>

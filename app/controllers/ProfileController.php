@@ -48,7 +48,7 @@ class ProfileController extends BaseController {
 		                'seller' => User::find($purchase->pivot->user_id_seller)->username,
 		                'book_description' => route('book', $book->book_id),
 		                'book_certificate' => $purchase->pivot->certificate_link,
-		                'book_pdf' => $purchase->pivot->link_to_PDF
+		                'book_pdf' => $purchase->link_to_PDF
 		            ));
 		        }
 		    }

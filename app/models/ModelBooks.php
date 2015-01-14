@@ -272,6 +272,8 @@ class ModelBooks {
 
       $bookstore = BookstoreStatistics::all()->first();
       $bookstore->total_number_of_sold_titles++;
+      $book->number_of_purchased_copies++;
+      $book->save();
 
       $stack = $book->stack; 
       $id_seller = $stack->client_with_lowest_price;
