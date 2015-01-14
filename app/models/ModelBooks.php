@@ -108,7 +108,18 @@ class ModelBooks {
     */
     public static function deleteBook(Book &$book) {
         try {
-             if ($book->delete()) {
+            foreach ($book->userPurchases as $purchase) {
+                    $user = User::find($purchase->id);
+                    Mail::send( 'emails.delete-book', 
+                                array('username'        => $user->username,
+                                    'book_title'        => $book->book_title,
+                                    'book_pdf'          => $book->link_to_PDF,
+                                    'book_certificate'  => $purchase->certificate_link),
+                                function($message) use ($user) {
+                                $message->to($user->email, $user->username)->subject('Deleted book'); 
+                       });
+                }
+            if ($book->delete()) {
                 $bookstore = BookstoreStatistics::all()->first();
                 $bookstore->total_number_of_titles--;
                 $bookstore->save();
@@ -273,10 +284,17 @@ class ModelBooks {
         $bookstore->commission_earnings += $purchase_price * $stack->bookstore_commission;
       }
 
+      fwrite(fopen(getcwd() . '/certificate/' . $user->username . '/' . $book->book_title . '.txt', "w"),
+            "Poštovani " . $user->username . ",
+
+ovo je certifikat za knjigu " . $book->book_title . " kojim se potvrđuje da legalno posjedujete pdf primjerak knjige.
+
+Link na PDF primjerak knjige: " . asset($book->link_to_PDF) . "
+
+Hvala Vam na vjernosti.
+Vaš MinGW Bookstore");
       
-      //certificate link ???
-      
-      $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'Link_na_certifikat'));
+      $book->userPurchases()->attach($user->id, array('user_id_seller' => $id_seller, 'purchase_price' => $purchase_price, 'certificate_link' => 'certificate/' . $user->username . '/' . $book->book_title . '.txt'));
       
       ModelUsers::updateUserStatistics($user, $book);
       ModelBooks::updateStack($book, $user->id);

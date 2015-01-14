@@ -81,7 +81,10 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
         $statistic->total_bought_users = '0';
         $statistic->total_price_books = '0';
         $statistic->number_of_client_partners = '0';
-        $user->statistics()->save($statistic); 
+        $user->statistics()->save($statistic);
+
+        if(!file_exists(getcwd() . '/certificate/' . $username))
+          mkdir(getcwd() . '/certificate/' . $username);
 
         try {
         // save $user + relationship

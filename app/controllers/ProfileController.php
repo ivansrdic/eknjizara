@@ -13,8 +13,8 @@ class ProfileController extends BaseController {
 			$viewParametersStatistics = array(
 				'total_number_of_titles' => $statistics->total_number_of_titles, 
 		        'total_number_of_sold_titles' => $statistics->total_number_of_sold_titles,
-		        'total_earnings' => $statistics->total_earnings,
-		        'commission_earnings' => $statistics->commission_earnings
+		        'total_earnings' => round($statistics->total_earnings, 2),
+		        'commission_earnings' => round($statistics->commission_earnings, 2)
 		    );
 			
 
@@ -206,7 +206,7 @@ class ProfileController extends BaseController {
                 $authors = $authors . $author->author_name . " " . $author->author_lastname;
             }
             $tmp = array(
-            	'book_id' => $allBooks[$i]->id,
+            	'book_id' => $allBooks[$i]->book_id,
                 'book_title' => $allBooks[$i]->book_title,
                 'authors' => $authors,
                 'link_to_PDF' => $allBooks[$i]->link_to_PDF,

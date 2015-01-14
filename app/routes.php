@@ -307,6 +307,13 @@ Route::get('/test', array(
 		unset($book);
 
 
+		$name = 'Ivan';
+		$lastname = 'Srdić';
+		$email = 'ivan.srdic@fer.hr';
+		$username = 'ivansrdic';
+		$password = Hash::make('123456');
+		ModelUsers::createUser($name, $lastname, $email, $username, $password);
+
 		$name = 'Deni';
 		$lastname = 'Zeleni';
 		$email = 'deni@zeleni.hr';
@@ -501,7 +508,7 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('/book/delete/{id}', array(
 		'as' => 'delete-book',
-		'uses' => 'BookController@deleteBook'
+		'uses' => 'BookController@getDeleteBook'
 	));
 
 	Route::get('/book/buy/{id}', array(

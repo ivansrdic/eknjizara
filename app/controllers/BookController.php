@@ -37,7 +37,8 @@ class BookController extends BaseController {
             'pagenumber' => $book->pagenumber,
             'grade' => $averageGrade,
             'comments' => ModelUsers::getComments_book($id),
-            'stack_rank' => $book->stack->stack_rank
+            'stack_rank' => $book->stack->stack_rank,
+            'description' => $book->description
         );
         return View::make('book', $viewParameters);
     }
@@ -185,10 +186,12 @@ class BookController extends BaseController {
                 'genres'           => 'required|max:200',
                 'publication_year' => 'required',
                 'price'            => 'required',
-                'pagenumber'       => 'required'
+                'pagenumber'       => 'required',
+                'description'      => 'required',
+                'book_copy'        => 'required',
+                'book_picture'     => 'required'
                 ) 
             );
-
 
         if($validator->fails()) {
                 return Redirect::route('add-book')
@@ -201,10 +204,9 @@ class BookController extends BaseController {
                 $publication_year = Input::get('publication_year');
                 $price            = Input::get('price');
                 $pagenumber       = Input::get('pagenumber');
-                $path_book        = 'pdf';
-                $file_book        = Input::file('book_copy')->move($path_book, $book_title); 
-                $path_picture     = 'images/book-covers';
-                $file_picture     = Input::file('book_picture')->move($path_picture, $book_title);
+                $description      = Input::get('description');
+
+                
 
                 $tmp1Authors = explode(", ", $tmp1Authors);
                 $authors = array();
@@ -227,24 +229,40 @@ class BookController extends BaseController {
                     $genres[$i] = new Genre();
                     $genres[$i]->genre_name = $tmpGenres[$i]; 
                 }
+                $id = Book::all()->last()->book_id;
 
                 $book = new Book();
                 $book->book_title       = $book_title;
                 $book->publication_year = $publication_year;
                 $book->pagenumber       = $pagenumber;
-                $book->link_to_PDF      = 'pdf/' . $book_title . '.pdf';
-                $book->link_picture     = 'images/book-covers/' . $book_title . 'jpg'; 
-
+                $book->link_to_PDF      = 'pdf/' . $id . '.' . Input::file('book_copy')->getClientOriginalExtension();
+                $book->link_picture     = 'images/book-covers/' . $id . '.' . Input::file('book_picture')->getClientOriginalExtension(); 
+                $book->description      = $description;
                 if (ModelBooks::addBook($book, $authors, $genres, $price)) {
+                    Input::file('book_copy')->move('pdf', $id . "." . Input::file('book_copy')->getClientOriginalExtension());
+                    Input::file('book_picture')->move('images/book-covers', $id . "." . Input::file('book_picture')->getClientOriginalExtension());
                     return Redirect::route('add-book')
                         ->with('global','Your book has been saved!');
                 } else {
                     return Redirect::route('add-book')
-                        ->with('global','Your book has not been saved!');
+                        ->with('global','Your book has not been saved!')
+                        ->withInput();
                 }
                 
             }
 
+    }
+
+    public function getDeleteBook($id) {
+        $book = Book::find($id);
+        $book_title = $book->book_title;
+        if(ModelBooks::deleteBook($book)) {
+            return Redirect::route('admin-book-list')
+                        ->with('global','The book "' . $book_title . '" has been deleted!');
+        } else {
+            return Redirect::route('admin-book-list')
+                        ->with('global','The book "' . $book_title . '" has NOT been deleted!');
+        }
     }
 
 

@@ -15,14 +15,14 @@
 @section('body')
 <div class = "main content">
 	<main class = "container margin2000">
+		@if(Auth::user()->isAdmin)
 		<div class = "row border-bottom margin0020">
 			<div class = "twelve columns profile-name">
 				<h2 class = "no-margin">{{ Auth::user()->username }}</h2>
-				<a href="{{ URL::route('edit') }}"><h6>edit</h6></a>
+				<a href="{{ URL::route('edit') }}"><button>edit</button></a>
 			</div>
 		</div>
-		@if(Auth::user()->isAdmin)
-			<div class = "admin border-top">
+			<div class = "admin">
 				<div class = "row margin2000">
 					<div class = "twelve columns">
 						<h4>Statistika knjižare</h4>
@@ -48,6 +48,12 @@
 				</div>
 			</div>
 		@else
+		<div class = "row border-bottom margin0020">
+			<div class = "twelve columns profile-name">
+				<h2 class = "no-margin">{{ Auth::user()->name }} {{ Auth::user()->lastname }} - {{ Auth::user()->username }}</h2>
+				<a href="{{ URL::route('edit') }}"><button style="margin-top:7px">edit</button></a>
+			</div>
+		</div>
 			<div class = "row">
 				<div class = "twelve columns">
 					<h4>Broj kupljenih e-knjiga</h4>

@@ -9,7 +9,7 @@ class Book extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 
-	protected $fillable = array('book_title', 'link_picture', 'pagenumber', 'publication_year', 'link_to_PDF', 'number_of_purchased_copies');
+	protected $fillable = array('book_title', 'link_picture', 'pagenumber', 'publication_year', 'link_to_PDF', 'number_of_purchased_copies', 'description');
 
 	protected $table = 'books'; // table used for model 
   protected $primaryKey = 'book_id';

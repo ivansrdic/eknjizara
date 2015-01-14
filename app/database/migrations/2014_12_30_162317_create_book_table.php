@@ -20,7 +20,7 @@ class CreateBookTable extends Migration {
 			$table->integer('pagenumber');
 			$table->integer('publication_year');  // Nema year type pa sam stavio integer(da bude samo godina bez datuma)! 
 			$table->string('link_to_PDF')->unique();
-			$table->text('opis'); 
+			$table->text('description'); 
 			$table->integer('number_of_purchased_copies');
 		
 			$table->timestamps(); // creating created_at & updated_at
