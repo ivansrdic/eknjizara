@@ -28,31 +28,33 @@
 					<h5>{{$authors}}</h5>
 				</div>
 				<div class="row">
-					<div class = "one-half column">
-						<h5>Ocijeni knjigu</h5>
-						{{ Form::open(array('url' => route('book-post'), 'method' => 'POST')) }}
+					@if(!Auth::user()->isAdmin)
+						<div class = "one-half column">
+							<h5>Ocijeni knjigu</h5>
+							{{ Form::open(array('url' => route('book-post'), 'method' => 'POST')) }}
 
-							{{ Form::select('rating', array(
-															'1' => '1',
-															'2' => '2',
-															'3' => '3',
-															'4' => '4',
-															'5' => '5',
-															'6' => '6',
-															'7' => '7',
-															'8' => '8',
-															'9' => '9',
-															'10' => '10'
-															), '10') }}
+								{{ Form::select('rating', array(
+																'1' => '1',
+																'2' => '2',
+																'3' => '3',
+																'4' => '4',
+																'5' => '5',
+																'6' => '6',
+																'7' => '7',
+																'8' => '8',
+																'9' => '9',
+																'10' => '10'
+																), '10') }}
 
-							{{ Form::hidden('type', 'rate') }}
-							{{ Form::hidden('book_id', $book_id) }}
-							{{ Form::submit('Pošalji', array('style' => 'display: inline-block;'))}}
+								{{ Form::hidden('type', 'rate') }}
+								{{ Form::hidden('book_id', $book_id) }}
+								{{ Form::submit('Pošalji', array('style' => 'display: inline-block;'))}}
 
-						{{ Form::close() }}
+							{{ Form::close() }}
 
-						<a href="{{route('buy-book', $book_id)}}"><button>Kupi knjigu</button></a>
-					</div>
+							<a href="{{route('buy-book', $book_id)}}"><button>Kupi knjigu</button></a>
+						</div>
+					@endif
 					<div class = "one-half column">
 						<h5>Ocjena knjige</h5>
 						<h5 class = "margin0020">{{round($grade, 1)}}/10</h5>
@@ -74,16 +76,18 @@
 				</p>
 			</div>
 		</div>
-		<div class="row">
-			{{ Form::open(array('url' => route('book-post'), 'method' => 'POST')) }}
+		@if(!Auth::user()->isAdmin)
+			<div class="row">
+				{{ Form::open(array('url' => route('book-post'), 'method' => 'POST')) }}
 
-				{{ Form::textarea('comment', '', array('class' => 'u-full-width')) }}
-				{{ Form::hidden('type', 'comment') }}
-				{{ Form::hidden('book_id', $book_id) }}
-				{{ Form::submit('Komentiraj', array('class' => 'u-pull-right'))}}
+					{{ Form::textarea('comment', '', array('class' => 'u-full-width')) }}
+					{{ Form::hidden('type', 'comment') }}
+					{{ Form::hidden('book_id', $book_id) }}
+					{{ Form::submit('Komentiraj', array('class' => 'u-pull-right'))}}
 
-			{{ Form::close() }}
-		</div>
+				{{ Form::close() }}
+			</div>
+		@endif
 		<div class = "row text-list">
 			@foreach($comments as $comment)
 				<div class = "twelve columns margin2000">
