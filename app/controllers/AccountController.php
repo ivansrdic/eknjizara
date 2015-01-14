@@ -97,26 +97,5 @@ class AccountController extends BaseController {
 
 		}
 
-	}
-
-	public function getActivate ($code) {
-    /*  Method called when user clicks on link for account activation */
-    $user = User::where('code','=',$code)->where('active','=',0)->first();
-
-    if ($user) {
-        //Update user to active state
-        $user->active = 1;
-        $user->code ='';
-
-        if($user->save()) {
-            return Redirect::route('home')
-                            ->with('global','Your account is activated!');
-        }
-    }
-
-    return Redirect::route('home')
-                    ->with('global', 'We could not activate your account. Try again later');
-	}
-
-	
+	}	
 }

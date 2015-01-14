@@ -42,11 +42,6 @@ class BookController extends BaseController {
         return View::make('book', $viewParameters);
     }
 
-    /*
-    Moram u komentaru dobit username, a ne user_id tak da to u modelu treba sredit
-
-    */
-
     public function postBook() {
         $book = Book::find(Input::get('book_id'));
         if (Input::get('type') == 'rate') {
