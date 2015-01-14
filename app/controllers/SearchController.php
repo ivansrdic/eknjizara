@@ -5,7 +5,7 @@ class SearchController extends BaseController {
     public function getSearch() {
         $books = ModelBooks::newest();
         if (count($books) > 8) {
-            $newest = array_slice($newest, 0, 8);
+            $books = array_slice($books, 0, 8);
         }
 
         $viewParameters = array();

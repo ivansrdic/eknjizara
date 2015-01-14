@@ -311,7 +311,7 @@ Route::get('/test', array(
 		$lastname = 'Zeleni';
 		$email = 'deni@zeleni.hr';
 		$username = 'greenie';
-		$password = 'droga';
+		$password = Hash::make('greenie');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 
 
@@ -319,7 +319,7 @@ Route::get('/test', array(
 		$lastname = 'Masni';
 		$email = 'pero@masni.hr';
 		$username = 'mast';
-		$password = 'oblikovanje';
+		$password = Hash::make('mast');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 		
 
@@ -327,7 +327,7 @@ Route::get('/test', array(
 		$lastname = 'Sekulić';
 		$email = 'seke@lud.hr';
 		$username = 'puding';
-		$password = 'puding';
+		$password = Hash::make('puding');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 		
 
@@ -335,7 +335,7 @@ Route::get('/test', array(
 		$lastname = 'Košpa';
 		$email = 'dario93@gmail.hr';
 		$username = 'dario93';
-		$password = 'sjemenka';
+		$password = Hash::make('dario93');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 		
 
@@ -343,7 +343,7 @@ Route::get('/test', array(
 		$lastname = 'Radio';
 		$email = 'marko.radio@fer.hr';
 		$username = 'radio';
-		$password = 'antena';
+		$password = Hash::make('radio');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 	
 
@@ -351,7 +351,7 @@ Route::get('/test', array(
 		$lastname = 'Rabjac';
 		$email = 'nikica@fer.hr';
 		$username = 'nikica';
-		$password = 'program';
+		$password = Hash::make('nikica');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 				
 
@@ -359,7 +359,7 @@ Route::get('/test', array(
 		$lastname = 'Lončar';
 		$email = 'harry@hotmail.hr';
 		$username = 'harry34';
-		$password = 'hogwarts';
+		$password = Hash::make('harry34');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 		
 
@@ -367,7 +367,7 @@ Route::get('/test', array(
 		$lastname = 'John';
 		$email = 'elton.john@fer.hr';
 		$username = 'faca';
-		$password = 'glazba';
+		$password = Hash::make('faca');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 		
 
@@ -375,7 +375,7 @@ Route::get('/test', array(
 		$lastname = 'Presley';
 		$email = 'elvis42@fer.hr';
 		$username = 'king';
-		$password = 'heybaby';
+		$password = Hash::make('king');
 		ModelUsers::createUser($name, $lastname, $email, $username, $password);
 		
 

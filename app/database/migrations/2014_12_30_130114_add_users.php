@@ -19,7 +19,7 @@ class AddUsers extends Migration {
 			'lastname'=>'MinGW Bookstore',
 			'username'=>'MinGW Bookstore',
 			'email'=>'bookstore@mingw.com',
-			'active'=>0,
+			'active'=>1,
 			'isAdmin'=>1,
 			'created_at'=>date('Y-m-d H:m:s'),
 			'updated_at'=>date('Y-m-d H:m:s')

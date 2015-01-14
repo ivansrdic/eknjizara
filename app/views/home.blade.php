@@ -99,7 +99,7 @@
 			<h4>Najprodavanije</h4>
 		</div>
 		<div class = "row">
-			@foreach($newest as $book)
+			@foreach($topSeller as $book)
 			<a href = "{{route('book', $book['book_id'])}}" class = "three columns">
 				<div class = "display-book">
 					<img src="{{ $book['link_picture']}}">
@@ -116,7 +116,7 @@
 			<h4>Najnovije</h4>
 		</div>
 		<div class = "row">
-			@foreach($topSeller as $book)
+			@foreach($newest as $book)
 			<a href = "{{route('book', $book['book_id'])}}" class = "three columns">
 				<div class = "display-book">
 					<img src="{{ $book['link_picture']}}">

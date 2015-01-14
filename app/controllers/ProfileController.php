@@ -94,17 +94,23 @@ class ProfileController extends BaseController {
      
 		foreach($purchases as $purchase) {
 		 		$user_seller = $purchase->user_id_seller; 
-
-		 		if(!(in_array($user_seller, $partners))) {
-		 			if ($purchase->user_id == $user->id) {    // kupljeno -> ispisuje user_id_seller od koga je kupio 
+		 		if ($purchase->user_id == $user->id && $purchase->user_id_seller == 1) {    // kupljeno -> ispisuje user_id_seller od koga je kupio 
 		 				array_push($partners, 
+		 			 		array(
+			                	'username' => User::find($user_seller)->username,
+			                	'book_title' => Book::find($purchase->book_id_foreign)->book_title,
+			                	'sold/bought' => 'Kupio od knjizare',
+			                	'created_at' => $purchase->created_at
+	         			));
+	         	} else if ($purchase->user_id == $user->id ) {
+	         			array_push($partners, 
 		 			 		array(
 			                	'username' => User::find($user_seller)->username,
 			                	'book_title' => Book::find($purchase->book_id_foreign)->book_title,
 			                	'sold/bought' => 'Kupio od klijenta',
 			                	'created_at' => $purchase->created_at
 	         			));
-		 			} else if ($purchase->user_id_seller == $user->id) {   // prodana -> ispisuje klijenta kojem je prodana 
+		 		} else if ($purchase->user_id_seller == $user->id) {   // prodana -> ispisuje klijenta kojem je prodana 
 		 				 array_push($partners, 
 		 			 		array(
 		                		'username' => User::find($purchase->user_id)->username,
@@ -112,10 +118,8 @@ class ProfileController extends BaseController {
 		                		'sold/bought' => 'Prodano klijentu',
 		                		'created_at' => $purchase->created_at
 	         			));
-		 		}
-		 	}	
-
-		 }
+	         	}
+	     }
 		return View::make('client-partner-list', array('partners' => $partners));
 	}
 

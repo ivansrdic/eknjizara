@@ -20,8 +20,8 @@ class AccountController extends BaseController {
 			
 			$auth = Auth::attempt(array(
 				'username' => Input::get('usernameLogin'),
-				'password' => Input::get('password'),
-				'active' => 1
+				'password' => Input::get('password')
+				// 'active' => 1
 			), $remember);
 		
 			if($auth) {

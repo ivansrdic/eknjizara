@@ -219,7 +219,7 @@ class ModelBooks {
     *           kraju najstarije knjige, vraca sve knjige iz baze
     */
     public static function newest() {
-        return Book::orderBy('publication_year', 'desc')->get()->all();
+        return Book::orderBy('created_at', 'desc')->get()->all();
     }
 
 

@@ -69,10 +69,10 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
 
     if($user->save()) {
               // šalje email na uneseni email 
-              Mail::send('emails.auth.activate', array('link' => URL::route('account-activate',$code), 'username' => $username), function($message) use ($user) {
-                /* use $user allows us to use $user-email */
-                $message->to($user->email, $user->username)->subject('Activate your account'); 
-              });
+              // Mail::send('emails.auth.activate', array('link' => URL::route('account-activate',$code), 'username' => $username), function($message) use ($user) {
+              //   /* use $user allows us to use $user-email */
+              //   $message->to($user->email, $user->username)->subject('Activate your account'); 
+              // });
 
         // kreira novu statistiku za novog user-a
         $statistic = new User_Statistics(); 
@@ -200,7 +200,7 @@ class ModelUsers extends Eloquent implements UserInterface, RemindableInterface 
   public static function getPartners() { 
     
     $users = User::all(); 
-    $partners[] = array(); 
+    $partners = array(); 
     foreach($users as $user ) {
       array_push($partners, $user->statistics->number_of_client_partners); 
     }
