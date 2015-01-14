@@ -136,6 +136,24 @@ class ProfileController extends BaseController {
 		return View::make('client-partner-list', array('partners' => $partners));
 	}
 
+	public function getPartnerProfile($username) {
+		$user = User::where('username', '=', urldecode($username))->first();
+		$statistics = ModelUsers::getUserStatistics($user->id);
+		$total_bought_books = $statistics->total_bought_bookstore + $statistics->total_bought_users;
+
+		$viewParameters = array(
+			'username' => $user->username,
+			'email' => $user->email,
+			'total_bought_books' => $total_bought_books, 
+	        'total_bought_bookstore' => $statistics->total_bought_bookstore,
+	        'total_bought_users' => $statistics->total_bought_users,
+	        'total_price_books' => $statistics->total_price_books,
+	        'number_of_client_partners' => $statistics->number_of_client_partners,
+	        'user_rank' => $statistics->user_rank 
+	    );
+		return View::make('partner-profile', array('user' => $viewParameters));
+	}
+
 
 
 	public function getRegisteredClients() {

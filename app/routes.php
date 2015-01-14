@@ -474,6 +474,11 @@ Route::group(array('before' => 'auth'), function() {
 		'uses' => 'ProfileController@getPartnerList'
 	));
 
+	Route::get('partner-profile/{username}', array(
+		'as' => 'partner-profile',
+		'uses' => 'ProfileController@getPartnerProfile'
+	));
+
 	Route::get('/search', array(
 		'as' => 'search',
 		'uses' => 'SearchController@getSearch'

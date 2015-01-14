@@ -30,7 +30,7 @@
 								@if($partner['username'] == "MinGW Bookstore")
 									{{ $partner['username'] }}
 								@else
-									<a href="{{ route('partner-profile') }}/{{ urlencode($partner['username']) }}">{{ $partner['username'] }}</a>
+									<a href="{{ route('partner-profile', urlencode($partner['username'])) }}">{{ $partner['username'] }}</a>
 								@endif
 							</h5>
 							<h5>{{ $partner['sold/bought'] }}</h5>
