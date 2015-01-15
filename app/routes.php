@@ -92,7 +92,7 @@ Route::get('/test', array(
 		$author->author_name = 'Marcel';
 		$author->author_lastname = 'Proust';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'modernist';
 
 		ModelBooks::addBook($book, array($author), $genres, 200);
@@ -112,7 +112,7 @@ Route::get('/test', array(
 		$author->author_name = 'Miroslav';
 		$author->author_lastname = 'Krleža';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'novel';
 
 		ModelBooks::addBook($book, array($author), $genres, 200);
@@ -131,7 +131,7 @@ Route::get('/test', array(
 		$author->author_name = 'August';
 		$author->author_lastname = 'Šenoa';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'novel';
 
 		ModelBooks::addBook($book, array($author), $genres, 200);
@@ -151,7 +151,7 @@ Route::get('/test', array(
 		$author->author_name = 'Dinko';
 		$author->author_lastname = 'Šimunović';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'action';
 
 		ModelBooks::addBook($book, array($author), $genres, 200);
@@ -192,7 +192,7 @@ Route::get('/test', array(
 		$author->author_name = 'J.D.';
 		$author->author_lastname = 'Salinger';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'adventure';
 		
 		ModelBooks::addBook($book, array($author), $genres, 200);
@@ -233,7 +233,7 @@ Route::get('/test', array(
 		$author->author_name = 'August';
 		$author->author_lastname = 'Šenoa';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'short story';
 
 		ModelBooks::addBook($book, array($author), $genres, 128);
@@ -253,7 +253,7 @@ Route::get('/test', array(
 		$author->author_name = 'Ivo';
 		$author->author_lastname = 'Andrić';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'novel';
 
 		ModelBooks::addBook($book, array($author), $genres, 200);
@@ -273,7 +273,7 @@ Route::get('/test', array(
 		$author->author_name = 'Albert';
 		$author->author_lastname = 'Camus';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'thriller';
 
 		ModelBooks::addBook($book, array($author), $genres, 523);
@@ -293,7 +293,7 @@ Route::get('/test', array(
 		$author->author_name = 'Geroge';
 		$author->author_lastname = 'Orwell';
 
-		$genres = array(new Genre(), new Genre());
+		$genres = array(new Genre());
 		$genres[0]->genre_name = 'satire';
 
 		ModelBooks::addBook($book, array($author), $genres, 423);
