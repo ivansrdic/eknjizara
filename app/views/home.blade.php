@@ -13,7 +13,6 @@
 @stop
 
 @section('body')
-
 <div class = "main content">
 	<main class = "container margin2000">
 		@if(Session::has('global'))
